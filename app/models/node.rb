@@ -5,7 +5,8 @@ class Node < ActiveRecord::Base
   has_many :tincs
   belongs_to :status
   has_many :node_registrations
-    
+  attr_accessible :wlan_mac
+  
   ## All nodes, where: VPN-Status is up, or tinc is trying to connect  
   def self.registerable(remote_addr)
     running_nodes = Node.where(:status_id => Status.up, :user_id => nil, :current_ip => remote_addr)
