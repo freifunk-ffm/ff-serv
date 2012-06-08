@@ -20,6 +20,10 @@ authorization do
       to :create
       if_attribute :node_id => is_in { Node.registerable(user.current_ip).map{|n| n.id} }
     end
+    has_permission_on :nodes do
+      to :show_ip
+      if_attribute :current_ip => is {user.current_ip}
+    end
     
     
   end

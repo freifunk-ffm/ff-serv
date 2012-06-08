@@ -44,20 +44,22 @@ class Node < ActiveRecord::Base
       pipe.each_line do |line|
         md = line.match '(.+) .+ tinc..+\[\d+\]: Error while processing ID from (.+) \((.+) port \d+\)'
         if(md)
+          logger.info "Got line-match: #{md}"
           time_stmp = md[1]
           node_mac = md[2]
           node_ip = md[3]
-          md2 = time_stmp.match '(\w+) (\d\d) (\d\d):(\d\d):(\d\d)'
+          md2 = time_stmp.match '(\w+) +(\d+) (\d\d):(\d\d):(\d\d)'
           if(md2)
           	yet = Time.local(t45_secs_ago.year, md2[1], md2[2],md2[3],md2[4],md2[5])
           	# Since tinc tries to connect every 45secs, we will use data younger than 45secs only
           	ago = yet - t45_secs_ago #If ago > 0 => Time > t45_secs_ago => Recent enough
+          	logger.info "Got md2-match #{md2} - ago is #{ago}"
           	if(ago > 0 || historic) # If recent enough or historic nodes should be included ...
             		nodes[node_mac] = Node.new(:wlan_mac => node_mac, :bat0_mac => node_mac, :current_ip => node_ip, :updated_at => DateTime.parse(yet.to_s))
-          	else
-          		logger.error "md2 is nil for #{md1}"
           	end
           end
+        else
+        	logger.info "No Line-Match #{line}"
         end
       end
     end
