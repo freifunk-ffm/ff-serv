@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :role_id, :name
   attr_accessor :current_ip
+  before_create :set_role
   
   require 'digest/md5'
   # Include default devise modules. Others available are:
@@ -23,5 +24,9 @@ class User < ActiveRecord::Base
   def image_url
     digest = Digest::MD5.hexdigest("#{email}".downcase)
     return "http://www.gravatar.com/avatar/#{digest}"
+  end
+  
+  def set_role
+    role_id = Role.user.id
   end
 end
