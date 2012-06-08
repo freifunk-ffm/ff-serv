@@ -30,6 +30,11 @@ authorization do
   
   role :guest do
     has_permission_on :nodes, :to => [:index]
+    
+ #   has_permission_on :nodes do
+ #     to :show_ip
+ #     if_attribute :current_ip => is {user.current_ip}
+ #   end
   end
   
   # Node, authenticated by mac
