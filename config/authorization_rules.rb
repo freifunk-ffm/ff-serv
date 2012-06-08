@@ -60,6 +60,6 @@ authorization do
 end
 privileges do
    privilege :all_res do
-     includes :create, :read, :update, :delete, :index, :edit
+     includes :create, :read, :update, :delete, :index, :edit, :destroy
    end
 end
