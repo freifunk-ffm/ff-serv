@@ -63,7 +63,7 @@ class Node < ActiveRecord::Base
             		  :bat0_mac => node_mac, 
             		  :current_ip => node_ip, 
             		  :updated_at => DateTime.parse(yet.to_s)
-          		  }
+          		  })
           	end
           end
         else
