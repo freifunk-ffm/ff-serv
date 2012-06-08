@@ -1,2 +1,3 @@
 *.yml
 !tinc.yml
+!locales/*.yml
