@@ -18,6 +18,7 @@ class TincsController < ApplicationController
   # POST /tincs.xml
   def create
     data = params[:cert].read
+    existing = Tinc.find_by_cert_data(data)
     @tinc = Tinc.new(:cert_data => data)
     #Quick-and-dirty: Using lff wlan_mac = mac-address of eth0
     wlan_mac = session[:wlan_mac]
@@ -25,7 +26,7 @@ class TincsController < ApplicationController
     @tinc.node = Node.find_by_wlan_mac(wlan_mac) || Node.new(:wlan_mac => wlan_mac)
     @tinc.rip = request.remote_ip
     respond_to do |format|
-      if @tinc.save
+      if existing || @tinc.save
         format.txt  {  }
       else
         format.txt { render :text => "Error processing tinc-submission - " + @tinc.errors.full_messages.join("\n")  + "\n"}
