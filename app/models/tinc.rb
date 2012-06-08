@@ -5,7 +5,7 @@ class Tinc < ActiveRecord::Base
   validates_presence_of :node
   validates_uniqueness_of :cert_data
   after_create :notify_admins
-  
+  attr_accessible :wlan_mac, :cert_data
   def checksum
     data = Digest::SHA1.hexdigest cert_data
     str = data.scan(/.{1,4}/).join(':')
