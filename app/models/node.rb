@@ -53,7 +53,13 @@ class Node < ActiveRecord::Base
           	# Since tinc tries to connect every 45secs, we will use data younger than 45secs only
           	ago = yet - t45_secs_ago #If ago > 0 => Time > t45_secs_ago => Recent enough
           	if(ago > 0 || historic) # If recent enough or historic nodes should be included ...
-            		nodes[node_mac] = Node.new(:wlan_mac => node_mac, :bat0_mac => node_mac, :current_ip => node_ip, :updated_at => DateTime.parse(yet.to_s))
+          	    nodes[node_mac] = Node.find_or_create_by_wlan_mac(node_mac)
+            		nodes[node_mac].update_attributes({
+            		  :wlan_mac => node_mac, 
+            		  :bat0_mac => node_mac, 
+            		  :current_ip => node_ip, 
+            		  :updated_at => DateTime.parse(yet.to_s)
+          		  }
           	else
           		logger.error "md2 is nil for #{md1}"
           	end
