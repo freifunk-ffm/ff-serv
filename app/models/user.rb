@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
-  attr_accessible :role_id
+  attr_accessible :role_id, :name
   attr_accessor :current_ip
   
   require 'digest/md5'
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable 
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
