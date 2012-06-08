@@ -11,8 +11,7 @@ class Node < ActiveRecord::Base
   def self.registerable(remote_addr)
     logger.info "Remote-addr is: #{remote_addr}"
     running_nodes = Node.where(:status_id => Status.up, :user_id => nil, :current_ip => remote_addr)
-    connecting_nodes = (Node.unregistred.keep_if {|n| n.current_ip == remote_addr}) || []
-    logger.info "Connecting-nodes: #{connecting_nodes}"
+    connecting_nodes = (Node.unregistred.keep_if {|n| n.current_ip == remote_addr && n.node_registrations.size == 0}) || []
     running_nodes + connecting_nodes
   end
   
@@ -63,7 +62,7 @@ class Node < ActiveRecord::Base
             		  :bat0_mac => node_mac, 
             		  :current_ip => node_ip, 
             		  :updated_at => DateTime.parse(yet.to_s)
-          		  })
+          		  }) if nodes[node_mac].permitted_to? :update
           	end
           end
         else
