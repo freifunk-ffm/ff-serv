@@ -27,6 +27,6 @@ class User < ActiveRecord::Base
   end
   
   def set_role
-    role_id = Role.user.id
+    self.role_id = Role.user.id
   end
 end
