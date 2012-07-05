@@ -5,7 +5,7 @@ class Node < ActiveRecord::Base
   has_many :tincs
   belongs_to :status
   has_many :node_registrations
-  attr_accessible :wlan_mac, :bat0_mac, :current_ip, :updated_at
+  attr_accessible :wlan_mac, :bat0_mac, :current_ip, :updated_at, :status_id
   
   ## All nodes, where: VPN-Status is up, or tinc is trying to connect  
   def self.registerable(remote_addr)

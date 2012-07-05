@@ -27,7 +27,11 @@ class NodeRegistrationsController < ApplicationController
     @node_registration = NodeRegistration.new
     @node_registration.user = current_user
     @node_registration.node_id = params[:node]
-    @registerable_nodes = Node.registerable(request.remote_ip)
+    if permitted_to? :register_all
+    	@registerable_nodes = Node.registerable(request.remote_ip)
+    else
+    	@registerable_nodes = Node.all_unregistered
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @node_registration }

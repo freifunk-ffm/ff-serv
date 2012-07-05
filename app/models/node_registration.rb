@@ -1,6 +1,7 @@
 class NodeRegistration < ActiveRecord::Base
   using_access_control
   validates_uniqueness_of :node_id, :message => "Ein Node darf nur einmal registriert werden"
+  validates_presence_of :node_id
   belongs_to :node
   belongs_to :user
   before_create :set_user
