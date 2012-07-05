@@ -59,7 +59,7 @@ class Node < ActiveRecord::Base
             		  :bat0_mac => node_mac, 
             		  :current_ip => node_ip, 
             		  :updated_at => DateTime.parse(yet.to_s)
-          		  }
+          		  })
           	else
           		logger.error "md2 is nil for #{md1}"
           	end
