@@ -1,0 +1,11 @@
+<p>Hallo <%= @resource.email %>,</p>
+
+<p>Dein Freifunk_KBU-Account wurde wegen zu vieler fehlgeschlagener Login-Versuche gesperrt.</p>
+
+<p>Um ihn zu entsperren, rufe folgenden Link auf:</p>
+
+<p><%= link_to 'Account entsperren', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+
+<p>
+Gruß, das Freifunk-KBU-Team
+</p>

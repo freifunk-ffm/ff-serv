@@ -1,0 +1,211 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+body { background-color: #fff; margin: 0px; }
+
+body, p, ol, ul, td {
+  font-family: Arial,Helvetica,sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+.label_td{
+	font-weight: bold;
+	color: #FFF;
+	background-color: #E0256C;
+
+}
+
+.freifunk-yellow-bg{
+	background-color: #FFCB05;
+}
+.freifung-red-bg{
+	background-color: #E0256C;
+}
+
+.freifunk-red, h2, h3 {
+	color: #E0256C;
+}
+#logo{
+	top: 0px;
+	right: 0px;
+	text-align: right;
+	width: 100%;
+	background-repeat: repeat-x;
+}
+#header{
+	width: 100%;
+	height: 130px;
+	float:none;
+	background-color: #FFF;
+}
+#head{
+	float: left;
+	padding-left: 10px;
+	padding-top: 30px;
+}
+#banner{
+	height: 30px;
+}
+#body{
+	margin: 0px auto;
+	background-color: #FFF;
+	padding: 10px;
+	height: 100%;
+}
+table{
+	padding: 5px;
+}
+th{
+	background-color: #E0256C;
+	color: #FFF;
+	font-weight: bold;
+}
+.even{
+	background-color: #FFDDDD;
+}
+td.monospaced {
+	font-family: monospace,"Courier New";
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.monospaced {
+	font-family: monospace,"Courier New";
+}
+
+.centered{
+	text-align: center;	
+}
+.revoked{
+	color: #666;
+	text-decoration: line-through;
+}
+#user-info{
+	position: absolute;
+	right: 0px;
+	margin-right: 0px;
+	padding-right: 200px;
+	padding-top: 2px;
+	float: left;
+}
+a { 
+	color: #00F;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+}
+.center{
+	text-align: center;
+}
+#main-nav{
+	position: absolute;
+	top: 96px;
+	color: #FFF;
+	font-size: 14pt;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#main-nav a{
+	color: #FFF;
+	font-size: 14pt;
+	font-weight: bold;
+
+}
+.edittable{
+	border: 1px solid #000;
+
+}
+
+.edittable td{
+	padding: 5px;
+}
+.left{
+	padding-right: 40px;
+	float:left;
+}
+#map{
+	height: 600px;
+}
+.form_field{
+	width: 80%;
+}
+.node_reg_key{
+	font-weight: bold;
+}
+.node_reg_value pre{
+	padding: 2px;
+	display: inline;
+	font-size: 12px;
+}
+td.vpn_statusdown{
+	background-color: #FFE8E8;
+}
+td.vpn_statusup{
+	background-color: #EFE;
+}
+span.vpn_statusdown{
+	color: #A00;
+	font-weight: bold;
+}
+span.vpn_statusup{
+	color: #0A0;
+	font-weight: bold;
+}

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  node_id: 1
+  vpn_status_id: 1
+  fw_version: MyString
+  initial_conf_version: MyString
+  vpn_sw_name: MyString
+
+two:
+  node_id: 1
+  vpn_status_id: 1
+  fw_version: MyString
+  initial_conf_version: MyString
+  vpn_sw_name: MyString

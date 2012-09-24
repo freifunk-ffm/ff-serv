@@ -1,0 +1,9 @@
+<p>Hallo <%= @resource.email %>,</p>
+
+<p>Bitte bestätige die Korrektheit Deiner E-Mail-Adresse durch das Aufrufen des folgenden Links.</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>
+Gruß, das Freifunk-KBU-Team
+</p>

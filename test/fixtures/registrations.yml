@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  operator_name: MyString
+  operator_email: MyString
+  loc_str: MyString
+  latitude: 
+  longitude: 
+  owner_id: 1
+  created_by: 1
+  updated_by: 1
+
+two:
+  name: MyString
+  operator_name: MyString
+  operator_email: MyString
+  loc_str: MyString
+  latitude: 
+  longitude: 
+  owner_id: 1
+  created_by: 1
+  updated_by: 1
