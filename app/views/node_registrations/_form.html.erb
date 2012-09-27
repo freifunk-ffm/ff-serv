@@ -21,7 +21,7 @@
 	<fieldset>
 		<legend>Node-Daten</legend>
 	  <div class="field">
-		<%= f.fields_for :node_attrs, @registration.node do |nf|%>
+		<%= f.fields_for :node_at, @registration.node do |nf|%>
 			<%= nf.hidden_field :id%>
 		    <%= nf.label :mac, 'Node:'%><br />
 			<i> (MAC-Address - siehe Aufkleber Rückseite)</i><br />

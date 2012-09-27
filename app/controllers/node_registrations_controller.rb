@@ -28,6 +28,7 @@ class NodeRegistrationsController < ApplicationController
   def new
     @registration = NodeRegistration.new
     @registration.node = Node.find(params[:node]) if params[:node]
+    
     @registration.owner = current_user
     @registration.osm_loc = "Suchbegriff"
     
@@ -45,7 +46,8 @@ class NodeRegistrationsController < ApplicationController
   # POST /node_node_registrations
   # POST /node_node_registrations.json
   def create
-    @registration = NodeRegistration.new(params[:registration])
+    @registration = NodeRegistration.new(params[:node_registration])
+    
     @registration.owner = current_user
     logger.debug "Role is #{current_user.role}"
     logger.debug "Registration is: #{@registration}"
@@ -68,7 +70,7 @@ class NodeRegistrationsController < ApplicationController
     @registration = NodeRegistration.find(params[:id])
 
     respond_to do |format|
-      if @registration.update_attributes(params[:registration])
+      if @registration.update_attributes(params[:node_registration])
         format.html { redirect_to @registration, notice: 'NodeRegistration was successfully updated.' }
         format.json { head :no_content }
       else
