@@ -17,7 +17,6 @@ authorization do
     
     has_permission_on :node_registrations, :to => [:new,:index,:read]
     has_permission_on :node_registrations, :to => [:new,:create] do
-      #if_attribute :loc_str => is {'abc'}
       if_permitted_to :register, :node
     end
     
