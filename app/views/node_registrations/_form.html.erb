@@ -3,8 +3,10 @@
 		init_reg_map('node_map');
 	});
 <% end %>
+
 <div class="left">
 <%= form_for(@registration) do |f| %>
+<% r_o = read_only(f) %>
   <% if @registration.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@registration.errors.count, "error") %> prohibited this registration from being saved:</h2>
@@ -71,7 +73,7 @@
 	    <%= f.text_area :notice, {:rows => "6"} %>
 	  </div>
 	  <div class="actions">
-	 	<%= f.submit 'Speichern' %>	
+	 	<%= f.submit 'Speichern' unless r_o %>	
 </fieldset>
 <% end %>
 </div>

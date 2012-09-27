@@ -71,7 +71,7 @@ class NodeRegistrationsController < ApplicationController
 
     respond_to do |format|
       if @registration.update_attributes(params[:node_registration])
-        format.html { redirect_to @registration, notice: 'NodeRegistration was successfully updated.' }
+        format.html { redirect_to nodes_path, notice: 'Registrierung erfolgreich gespeichert.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

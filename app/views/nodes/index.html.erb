@@ -1,5 +1,11 @@
 <% content_for (:head) do%>
 <h1>Nodes</h1>
 <% end %>
+
+<h2>Unregistrierte Nodes</h2>
+Unter Deiner IP sind diese unregistrierte Nodes verbunden.
+<%= render :partial => 'shared/regable_nodes', :object =>  @regable_nodes %>
+
 <h2>Registrierte Nodes</h2>
-<h2>Nicht registrierte Nodes</h2>
+Deine Nodes haben diesen Status.
+<%= render :partial => 'shared/registered_nodes', :object => @my_nodes %>

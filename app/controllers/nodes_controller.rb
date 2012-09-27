@@ -1,6 +1,7 @@
 class NodesController < ApplicationController
   def index
-    @registered = Node.registered
-    @reg_able = Node.unregistered_home
+    @my_nodes = Node.registered
+    @regable_nodes = Node.unregistered_home
   end
+  
 end

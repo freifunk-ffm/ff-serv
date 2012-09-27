@@ -9,7 +9,7 @@ class Node < ActiveRecord::Base
   
   scope :registered, where('node_registration_id IS NOT NULL').includes([:status]) 
   scope :unregistered, where("node_registration_id IS NULL").includes([:status])  
-  scope :unregistered_home, unregistered.joins([:status]).where(:node_statuses => {:ip => Authorization.current_user.current_ip})
+  scope :unregistered_home, unregistered.joins([:status]).where(:node_statuses => {:ip => Authorization.current_user.current_sign_in_ip})
   scope :reg_able, unregistered.with_permissions_to(:register)
   
   def reg_able?

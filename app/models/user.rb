@@ -21,3 +21,8 @@ class User < ActiveRecord::Base
     "#{email}"
   end
 end
+class Authorization::AnonymousUser
+  def current_sign_in_ip
+    nil
+  end
+end

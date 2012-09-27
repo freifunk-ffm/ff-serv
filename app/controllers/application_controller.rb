@@ -5,6 +5,5 @@ class ApplicationController < ActionController::Base
   private
   def copy_user
     Authorization.current_user = current_user || User.new
-    Authorization.current_user.current_ip = request.remote_ip
   end
 end
