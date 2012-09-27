@@ -29,7 +29,7 @@ authorization do
   
   #Guest: Nicht angemeldeter Server
   role :guest do
-    has_permission_on :nodes, :to => [:read]
+    has_permission_on :nodes, :to => [:read,:index]
     has_permission_on :node_registrations, :to => [:index,:read]
     # Hack: Don't panic for missing rules, since a rule never to be fullfilled is defined
     has_permission_on :nodes do
