@@ -14,6 +14,7 @@ authorization do
       to :register
       if_attribute :status => {:ip => is {user.current_ip}}
     end
+    has_permission_on :nodes, :to => [:update]
     
     has_permission_on :node_registrations, :to => [:new,:index,:read]
     has_permission_on :node_registrations, :to => [:new,:create] do
