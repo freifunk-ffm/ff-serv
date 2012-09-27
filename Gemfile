@@ -38,6 +38,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 
-## Device 2012-09-23 (yanosz)
 gem 'devise'
 gem "declarative_authorization"
