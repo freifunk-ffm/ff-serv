@@ -1,7 +1,6 @@
 class NodeRegistrationsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :edit]
   
-  filter_resource_access
   # GET /node_node_registrations
   # GET /node_node_registrations.json
   def index

@@ -1,4 +1,6 @@
 class NodeRegistration < ActiveRecord::Base
+  using_access_control
+  
   attr_accessible :latitude, :loc_str, :longitude, :name, :operator_email, :operator_name, :notice, :osm_loc, :node_attrs
   has_one :node
   belongs_to :owner, :class_name => "User"

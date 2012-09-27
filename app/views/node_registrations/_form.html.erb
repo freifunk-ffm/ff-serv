@@ -1,3 +1,9 @@
+<% content_for(:javascript) do %>
+	$(function() {
+		init_reg_map('node_map');
+	});
+<% end %>
+<div class="left">
 <%= form_for(@registration) do |f| %>
   <% if @registration.errors.any? %>
     <div id="error_explanation">
@@ -66,5 +72,7 @@
 	  </div>
 	  <div class="actions">
 	 	<%= f.submit 'Speichern' %>	
-	</fieldset>
-	<% end %>
+</fieldset>
+<% end %>
+</div>
+<div id="node_map" class="right"></div>
