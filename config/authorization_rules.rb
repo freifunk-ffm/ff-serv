@@ -12,7 +12,7 @@ authorization do
   role :user do
     has_permission_on :nodes do
       to :register
-      if_attribute :status => {:ip => is {user.current_ip}}
+      if_attribute :status => {:ip => is {user.current_sign_in_ip}}
     end
     has_permission_on :nodes, :to => [:update]
     
@@ -22,7 +22,7 @@ authorization do
     end
     
     has_permission_on :node_registrations do
-      to :update
+      to [:update, :delete]
       if_attribute :owner => is {user}
     end
   end
