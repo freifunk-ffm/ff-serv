@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  node_id: 1
+  approved_at: 2012-10-21 14:33:52
+  approved_by: 1
+  revoked_at: 2012-10-21 14:33:52
+  revoked_by: 1
+  ip_adress: MyString
+  certfp: MyString
+  cert_data: MyText
+
+two:
+  node_id: 1
+  approved_at: 2012-10-21 14:33:52
+  approved_by: 1
+  revoked_at: 2012-10-21 14:33:52
+  revoked_by: 1
+  ip_adress: MyString
+  certfp: MyString
+  cert_data: MyText

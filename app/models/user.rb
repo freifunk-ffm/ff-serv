@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
   def to_s
     "#{email}"
   end
+  
+  def self.APPLICATION
+    @@auto_approver ||= User.create(:email => "ffserv")
+  end
+  
 end
 class Authorization::AnonymousUser
   def current_sign_in_ip

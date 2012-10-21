@@ -12,12 +12,18 @@ Willkommen auf <%= link_to 'https://register.kbu.freifunk.net' %>
 Die Registrierung Deines Nodes ist wichtig für die Teilnahme im Freifunk-Netz. Einerseits kannst Du den Standort Deines / Deiner Nodes auf einer Karte markieren, so dass von anderen gefunden werden kann. <br /> 
 Andererseits ist für uns wichtig, Deine E-Mail Adresse zu kennen um Dich bei Problemen direkt anschreiben zu können. Gleichzeitig erhältst Du nach der Registrierung Informationen zu Updates, Problemen und Störungen per E-Mail.
 </p>
+<% unless signed_in?%>
 <p>
 Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelden", new_user_session_path %>. Danach kannst Du die Nodes, die unter Deiner externen IP-Adresse online sind registrieren.
 </p>
-
+<% end %>
 <h2>Unregistrierte Nodes</h2>
+<% if signed_in? %>
+Du kannst diese Node registrieren.
+<% else %>
 Unter Deiner IP sind diese unregistrierte Nodes verbunden.
+<% end %>
+
 <%= render :partial => 'shared/regable_nodes', :object =>  @regable_nodes %>
 
 <h2>Registrierte Nodes</h2>

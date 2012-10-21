@@ -3,8 +3,10 @@ authorization do
   # Administrator
   role :admin do
     has_permission_on :nodes, :to => [:index,:create, :read, :update, :delete, :register]
-    has_permission_on :node_registrations, :to => :manage
+    has_permission_on :node_registrations, :to => [:index,:create, :read, :update, :delete]
     has_permission_on :users, :to => :manage
+    has_permission_on :tincs, :to => [:approve,:reject]
+  
   end
 
   
@@ -14,7 +16,7 @@ authorization do
       to :register
       if_attribute :status => {:ip => is {user.current_sign_in_ip}}
     end
-    has_permission_on :nodes, :to => [:update]
+    has_permission_on :nodes, :to => [:update,:create]
     
     has_permission_on :node_registrations, :to => [:new,:index,:read]
     has_permission_on :node_registrations, :to => [:new,:create] do
@@ -22,14 +24,21 @@ authorization do
     end
     
     has_permission_on :node_registrations do
-      to [:update, :delete]
+      to [:update, :delete,:edit]
       if_attribute :owner => is {user}
     end
+
+    has_permission_on :tincs do
+      to [:approve,:reject]
+      if_attribute :node => {:owner => is {user}}
+    end
+    
+
   end
   
   #Guest: Nicht angemeldeter Server
   role :guest do
-    has_permission_on :nodes, :to => [:read,:index]
+    has_permission_on :nodes, :to => [:read,:index,:create,:update]
     has_permission_on :node_registrations, :to => [:index,:read]
     # Hack: Don't panic for missing rules, since a rule never to be fullfilled is defined
     has_permission_on :nodes do

@@ -1,4 +1,10 @@
 Ffserv::Application.routes.draw do
+  resources :tincs do
+    member do
+      post 'approve', 'revoke'
+    end
+  end
+
   resources :node_registrations
 
   devise_for :users
@@ -17,6 +23,8 @@ Ffserv::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :app
   resources :nodes
+  resources :node_statuses
+
   # Sample resource route with options:
   #   resources :products do
   #     member do

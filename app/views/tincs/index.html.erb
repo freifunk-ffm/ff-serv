@@ -1,0 +1,58 @@
+<% content_for(:head) do %>
+<h1>VPN-Schlüssel</h1>
+<% end %>
+
+<h2>Tinc-VPN-Schlüssel
+<% if @node %>
+ (Node: <%= @node.mac%>)
+<% end %>	
+</h2>
+
+<% if @warn_collision %>
+	<div class="collision_warning">
+		<span class="bold">Achtung - Kollision: </span><br />
+		Für den Freifunk-Router <span class="monospaced"><%= @node.mac %></span> wurden mehrere Tinc-Schlüssel übermittelt. Da jedoch lediglich ein einziger Schlüssel verwendet werden kann, ist der Router möglicherweise nicht mehr Teil des Freifunk-Netzes. <br />
+Aktuell wird der am / um <%= I18n.l @node.valid_tinc.created_at, :format => :long %> übermittelte Schlüssel mit Fingerabdruck <span class="monospaced"><%= @node.valid_tinc.certfp%></span> verwendet. <br />
+Falls (z.B. nach einer Neuinstallation) ein anderer Schlüssel verwendet werden soll, akzeptiere ihn in der Liste. <br />
+Bei Fragen wende Dich an info@kbu.freifunk.net. <br />
+		
+</div>
+<p />
+<% end %>
+<table  cellspacing="0" cellpadding="3">
+  <tr>
+    <th></th>
+    <% unless @node%>
+		<th>Node</th>
+    <% end %>
+	<th>Erstmalig übermittelt</th>
+	<th>Zuletzt übermittelt</th>
+	<th>Akzeptiert</th>
+    <th>Zurückgezogen</th>
+    <th>Eingereicht von</th>
+    <th>Fingerabdruck</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tincs.each do |tinc| %>
+  <tr class="<%= cycle('odd','even') %> <%='revoked' if tinc.revoked_at.present? %>">
+	<td class="red bold">
+		<% if tinc.approved_at.blank? && tinc.revoked_at.blank?%>
+			Inaktiv
+		<% end %>
+	</td>
+	<% unless @node %>
+    <td class="monospaced"><%= tinc.node.mac %></td>
+    <% end %>
+	<td class="wide"><%= I18n.l tinc.created_at, :format => :short %></td>
+	<td class="wide"><%= I18n.l tinc.updated_at, :format => :short %></td>
+	<td class="wide"><%= I18n.l tinc.approved_at, :format => :short if  tinc.approved_at%></td>
+    <td class="wide"><%= I18n.l tinc.revoked_at, :format => :short if tinc.revoked_at %></td>
+    <td class="monospaced"><%= tinc.ip_address %></td>
+    <td><%= tinc.certfp %></td>
+    <td><%= link_to 'Verwenden', approve_tinc_path(tinc), :method => :post if tinc.can_approve?%></td>
+    <td><%= link_to 'Zurück ziehen', revoke_tinc_path(tinc), :method => :post if tinc.can_approve?%></td>
+  </tr>
+<% end %>
+</table>

@@ -209,3 +209,23 @@ span.vpn_statusup{
 	color: #0A0;
 	font-weight: bold;
 }
+.collision_warning{
+	background-color: #DDD;
+	border: 1px solid #000;
+	padding: 5px;
+}
+
+.collision_warning .bold{
+	font-weight: bold;
+	color: #A00;
+}
+td.wide{
+	padding-left: 12px;
+	padding-right: 12px;
+}
+.red{
+	color: #A00;
+}
+.bold{
+	font-weight: bold;
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120924092839) do
+ActiveRecord::Schema.define(:version => 20121021123352) do
 
   create_table "node_registrations", :force => true do |t|
     t.string   "name"
@@ -64,6 +64,24 @@ ActiveRecord::Schema.define(:version => 20120924092839) do
   end
 
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "tincs", :force => true do |t|
+    t.integer  "node_id"
+    t.datetime "approved_at"
+    t.integer  "approved_by"
+    t.datetime "revoked_at"
+    t.integer  "revoked_by"
+    t.string   "ip_address",  :limit => 63
+    t.string   "certfp"
+    t.text     "cert_data"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "tincs", ["approved_at"], :name => "index_tincs_on_approved_at"
+  add_index "tincs", ["certfp"], :name => "index_tincs_on_certfp"
+  add_index "tincs", ["node_id"], :name => "index_tincs_on_node_id"
+  add_index "tincs", ["revoked_at"], :name => "index_tincs_on_revoked_at"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

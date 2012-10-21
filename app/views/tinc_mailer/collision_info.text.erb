@@ -1,0 +1,10 @@
+Hallo,
+
+für den Freifunk-Node <%= @node.mac%> wurde ein neuer Tinc-Key eingereicht. Mögliche Ursache ist eine Neu-Installation des Routers. Da der alte Key nach wie vor gültig ist, ist der Node möglicherweise nicht mehr Bestandteil des Freifunk-Netzes.
+<% if @node.node_registration.present? %>
+Der registrierte Eigentümer des Nodes (<%= @node.node_registration.operator_name%> - <%= @node.node_registration.operator_email%>) wurde benachrichtigt und gebeten den neuen Key zu akzeptieren.
+<% else %>
+Da der Node nicht registriert ist, kann der Eigentümer nicht verständigt werden.
+<% end %>
+
+Gruß, Das kbu.freifunk.net-Team

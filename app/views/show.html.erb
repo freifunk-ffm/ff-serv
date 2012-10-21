@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Node:</b>
+  <%= @tinc.node_id %>
+</p>
+
+<p>
+  <b>Approved at:</b>
+  <%= @tinc.approved_at %>
+</p>
+
+<p>
+  <b>Approved by:</b>
+  <%= @tinc.approved_by %>
+</p>
+
+<p>
+  <b>Revoked at:</b>
+  <%= @tinc.revoked_at %>
+</p>
+
+<p>
+  <b>Revoked by:</b>
+  <%= @tinc.revoked_by %>
+</p>
+
+<p>
+  <b>Ip address:</b>
+  <%= @tinc.ip_address %>
+</p>
+
+<p>
+  <b>Certfp:</b>
+  <%= @tinc.certfp %>
+</p>
+
+<p>
+  <b>Cert data:</b>
+  <%= @tinc.cert_data %>
+</p>
+
+
+<%= link_to 'Edit', edit_tinc_path(@tinc) %> |
+<%= link_to 'Back', tincs_path %>

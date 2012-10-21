@@ -1,0 +1,11 @@
+Hallo,
+
+für Deinen Freifunk-Node <%= @node.mac %> wurde ein neuer VPN-Schlüssel eingereicht.
+In den meisten Fällen ist die Ursache eine Neuinstallation des Routers, bei dem der alte Schlüssel gelöscht wurde.
+
+Falls Du Deinen Router neu installiert hast, bestätige dies unter diesem Link:
+<%= url_for tincs_url(:n => @node.id)%>
+
+Bei Fragen wende Dich bitte an info@kbu.freifunk.net
+
+Gruß, das kbu.freifunk.net-Team
