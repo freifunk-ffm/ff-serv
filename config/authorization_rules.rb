@@ -3,9 +3,9 @@ authorization do
   # Administrator
   role :admin do
     has_permission_on :nodes, :to => [:index,:create, :read, :update, :delete, :register]
-    has_permission_on :node_registrations, :to => [:index,:create, :read, :update, :delete]
+    has_permission_on :node_registrations, :to => [:index,:create, :read, :update, :delete,:set_owner]
     has_permission_on :users, :to => :manage
-    has_permission_on :tincs, :to => [:approve,:reject]
+    has_permission_on :tincs, :to => [:approve,:revoke]
   
   end
 
@@ -29,8 +29,8 @@ authorization do
     end
 
     has_permission_on :tincs do
-      to [:approve,:reject]
-      if_attribute :node => {:owner => is {user}}
+      to [:approve,:revoke]
+      if_attribute :node => {:node_registration => {:owner => is {user}}}
     end
     
 

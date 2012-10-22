@@ -3,13 +3,14 @@
 class TincsController < ApplicationController
   before_filter :authenticate_user!, :except => [:create]
   before_filter :authenticate_mac, :only => [:create]
-  filter_access_to :show, :approve, :reject
+  filter_access_to :show, :approve, :revoke
   
   # GET /tincs
   # GET /tincs.json
   def index
-    @tincs = Tinc.where("1=1")
     node_id = params[:n]
+    node_ids = Node.with_permissions_to(:register).map{ |n| n.id}
+    @tincs = Tinc.where("node_id IN (?)",node_ids).includes(:node)
     if (node_id)
       @tincs = @tincs.where({:node_id => node_id})
       @node = Node.find(node_id)
@@ -45,7 +46,7 @@ class TincsController < ApplicationController
         if node.status.blank?
           status = NodeStatus.create(:node_id => node.id, 
             :vpn_status_id => VpnStatus.DOWN.id, 
-            :vpn_sw_name => "Tinc",
+            :vpn_sw_name => "tinc",
             :ip => request.remote_ip,
             :fw_version => params[:fw_version],
             :initial_conf_version => params[:initial_conf_version])

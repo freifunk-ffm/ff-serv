@@ -17,15 +17,20 @@ Andererseits ist für uns wichtig, Deine E-Mail Adresse zu kennen um Dich bei Pr
 Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelden", new_user_session_path %>. Danach kannst Du die Nodes, die unter Deiner externen IP-Adresse online sind registrieren.
 </p>
 <% end %>
-<h2>Unregistrierte Nodes</h2>
-<% if signed_in? %>
-Du kannst diese Node registrieren.
-<% else %>
-Unter Deiner IP sind diese unregistrierte Nodes verbunden.
+
+<% if @regable_nodes.size > 0 %>
+	<h2>Eigene, unregistrierte Nodes</h2>
+	<% if signed_in? %>
+		Du kannst diese Node registrieren.
+	<% else %>
+		Unter Deiner IP sind diese unregistrierte Nodes verbunden. Logge Dich ein um sie zu registrieren.
+	<% end %>
+	<%= render :partial => 'shared/regable_nodes', :object =>  @regable_nodes %>
 <% end %>
 
-<%= render :partial => 'shared/regable_nodes', :object =>  @regable_nodes %>
 
-<h2>Registrierte Nodes</h2>
-Deine Nodes haben diesen Status.
-<%= render :partial => 'shared/registered_nodes', :object => @my_nodes %>
+<% if @my_nodes.size > 0%>
+	<h2>Eigene Nodes</h2>
+	Deine Nodes haben diesen Status.
+	<%= render :partial => 'shared/registered_nodes', :object => @my_nodes %>
+<% end %>

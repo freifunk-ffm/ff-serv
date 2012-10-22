@@ -21,7 +21,11 @@ Ffserv::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  resources :app
+  resources :app do
+    collection do
+      get 'map','email_addresses'
+    end
+  end
   resources :nodes
   resources :node_statuses
 
@@ -61,7 +65,8 @@ Ffserv::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'app#index'
-
+  match '/lookup.json' => 'geocoders#lookup', :via => :get
+  
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

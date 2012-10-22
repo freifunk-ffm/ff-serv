@@ -8,6 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require jquery.ui.all
  *= require_self
  *= require_tree .
  */
@@ -181,9 +182,11 @@ a:hover{
 	padding-right: 40px;
 	float:left;
 }
-#node_map{
+/* Map in Node-Registration, Karte aller Nodes */
+#node_map, #nodes_map{
 	height: 600px;
 }
+
 .form_field{
 	width: 80%;
 }
@@ -228,4 +231,7 @@ td.wide{
 }
 .bold{
 	font-weight: bold;
+}
+#node_map{
+	height: 600px;
 }

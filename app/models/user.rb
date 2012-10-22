@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_create :set_default_role
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -25,6 +27,10 @@ class User < ActiveRecord::Base
     @@auto_approver ||= User.create(:email => "ffserv")
   end
   
+  private 
+  def set_default_role
+    self.role = Role.USER
+  end
 end
 class Authorization::AnonymousUser
   def current_sign_in_ip

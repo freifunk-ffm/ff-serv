@@ -5,10 +5,13 @@ module ApplicationHelper
   def read_only(form)
     model = form.object
     method = form.options[:html][:method]
+    logger.debug "Role: #{current_user.role_symbols}"
     if(method == :put)
-      model.permitted_to? :update
+      logger.debug "!#{model}.permitted_to? :update = #{!model.permitted_to? :update}"
+      return(!model.permitted_to? :update)
     else
-      model.permitted_to? :create
+      logger.debug "!#{model}.permitted_to? :create = #{!model.permitted_to? :create}"
+      return(!model.permitted_to? :create)
     end
   end
 end

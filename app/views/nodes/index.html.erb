@@ -1,10 +1,29 @@
 <% content_for (:head) do%>
-<h1>Nodes</h1>
+	<h1>Nodes</h1>
+<% end %>
+
+<% content_for(:javascript) do %>
+	$(function() {
+		$('div.node_map').each(function(index, value) { 
+			var lat = $( value ).attr('lat')
+			var lng = $( value ).attr('lng')
+			init_node_map(value, lat, lng)
+		});
+	});
+	
 <% end %>
 
 <h2>Registrierte Nodes</h2>
 Diese Nodes sind bei Freifunk-KBU registriert.
-<%= render :partial => 'shared/registered_nodes', :object => @registered   %>
+
+<table>
+	<th>Node</th>
+	<th>Position</th>
+	<%= render :partial => "nodes_reg", :collection => @registered %>
+</table>
+<%#= render :partial => 'shared/registered_nodes', :object => @registered   %>
+
+
 
 
 <h2>Unregistrierte Nodes</h2>

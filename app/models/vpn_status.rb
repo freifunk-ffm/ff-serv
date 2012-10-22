@@ -15,6 +15,7 @@ class VpnStatus < ActiveRecord::Base
   def self.DOWN
     @@up ||= VpnStatus.find_or_create_by_name('down')
   end
+  
 
 
 end

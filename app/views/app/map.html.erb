@@ -1,0 +1,16 @@
+<% content_for(:javascript) do %>
+	$(function() {
+		init_nodes_map();
+	});
+<% end %>
+
+<% content_for(:head) do %>
+<h1>Nodes</h1>
+<% end %>
+
+<h2>Node-Karte</h2>
+Die Karte zeigt die Position aller registrierten Nodes im Freifunk-KBU-Netz.  <br />
+<i>Klick auf einen Standort um weitere Informationen zu erhalten.</i>
+<p />
+
+<div id="nodes_map" />

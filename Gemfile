@@ -18,6 +18,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'
@@ -40,3 +41,4 @@ gem 'jquery-rails'
 
 gem 'devise'
 gem "declarative_authorization"
+gem 'geocoder'

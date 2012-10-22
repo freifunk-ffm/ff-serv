@@ -30,7 +30,7 @@ Bei Fragen wende Dich an info@kbu.freifunk.net. <br />
 	<th>Akzeptiert</th>
     <th>Zurückgezogen</th>
     <th>Eingereicht von</th>
-    <th>Fingerabdruck</th>
+    <th>Fingerabdruck (SHA-1)</th>
     <th></th>
     <th></th>
   </tr>
@@ -50,9 +50,9 @@ Bei Fragen wende Dich an info@kbu.freifunk.net. <br />
 	<td class="wide"><%= I18n.l tinc.approved_at, :format => :short if  tinc.approved_at%></td>
     <td class="wide"><%= I18n.l tinc.revoked_at, :format => :short if tinc.revoked_at %></td>
     <td class="monospaced"><%= tinc.ip_address %></td>
-    <td><%= tinc.certfp %></td>
-    <td><%= link_to 'Verwenden', approve_tinc_path(tinc), :method => :post if tinc.can_approve?%></td>
-    <td><%= link_to 'Zurück ziehen', revoke_tinc_path(tinc), :method => :post if tinc.can_approve?%></td>
+    <td class="monospaced"><%= tinc.certfp %></td>
+    <td><%= approve_link(tinc) %></td>
+    <td><%= revoke_link(tinc)%></td>
   </tr>
 <% end %>
 </table>

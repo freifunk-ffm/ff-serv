@@ -1,20 +1,22 @@
 <table  cellspacing="0" cellpadding="3">
 <tr>
 	<th>Node-ID (MAC)</th>
+	<th>VPN-Status</th>
 	<th>Firmware-Version</th>
 	<th>Config-Version</th>
-	<th>Online am</th>
+	<th>Letzte Status-Änderung</th>
 	<th> &nbsp; </th>
 </tr>
 	<% for node in registered_nodes %>
 	<tr class="<%= cycle('odd','even')%>">
 		<td class="monospaced"><%= node.mac %></td>
+		<td><span class="vpn_status<%=node.status.vpn_status%>"><%= node.status.vpn_status %></span></td> 
 		<td class="monospaced"><%= node.status.fw_version%></td>
 		<td class="monospaced"><%= node.status.initial_conf_version%></td>
-		<td><%= I18n.l node.status.created_at, :format => :short%></td>
+		<td><%= I18n.l node.status.created_at, :format => :short%> Uhr</td>
 		<td>
 			<%= link_to icon_tag('map_edit','Registrierung'), edit_node_registration_path(node.node_registration) %>
-			<%= link_to icon_tag('transmit_blue','Status'), node_statuses_path(:node => node) %>
+			<%= link_to icon_tag('clock','Historie'), node_statuses_path(:node => node) %>
 
 		</td>
 	</tr>

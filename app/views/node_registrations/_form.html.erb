@@ -1,12 +1,15 @@
 <% content_for(:javascript) do %>
 	$(function() {
-		init_reg_map('node_map');
+		init_reg_map();
+		init_auto_complete('#ajax-loader')
 	});
 <% end %>
 
 <div class="left">
 <%= form_for(@registration) do |f| %>
-<% r_o = read_only(f) %>
+<% r_o = read_only(f)
+logger.debug "Read-only is #{r_o}"
+ %>
   <% if @registration.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@registration.errors.count, "error") %> prohibited this registration from being saved:</h2>
@@ -32,11 +35,17 @@
 	  </div>
 	   <div class="field">
 	    <%= f.label :name, 'Name des Nodes (frei wählbar):' %><br />
-	    <%= f.text_field :name%>
+	    <%= f.text_field :name, {:readonly => r_o}%>
 	  </div>
 	   <div  class="field" >
-		    <%= f.label :user_id, 'Registriert durch:' %><br />
-			<span>	 <%= @registration.owner %> </span>
+		    <%= f.label :user_id, 'Eigentümer:' %><br />
+			<% if permitted_to? :set_owner, @registration%>
+				<%= f.select :owner_id, User.all.map { |u| [u.email,u.id]} %>
+			<% else %>
+				<span> <%= @registration.owner %> </span>
+			<% end %>
+		
+		
 		</div>
 <!--	   <div  class="field left" >
 	    <%= f.label :user_id, 'Registriert durch:' %><br />
@@ -47,20 +56,20 @@
 		</div>
 -->	   <div class="field">
 	    <%= f.label :operator_name, 'Name des Betreibers / Aufstellers:' %><br />
-	    <%= f.text_field :operator_name %>
+	    <%= f.text_field :operator_name, {:readonly => r_o} %>
 	  </div>
 	  <div class="field">
 	    <%= f.label :operator_email, 'Öffentliche E-Mail-Adresse für Anfragen:' %><br />
-	    <%= f.text_field :operator_email %>
+	    <%= f.text_field :operator_email, {:readonly => r_o} %>
 	  </div>
 	  <div class="field">
 	    <%= f.label :loc_str, 'Standort des Nodes' %><br />
 		<i>(z.B. Domkloster 4, 50667 Köln)</i><br />
-	    <%= f.text_field :loc_str %>
+	    <%= f.text_field :loc_str, {:readonly => r_o} %>
 	  </div>
 	  <div class="field">
 	    <%= f.label :osm_loc,'Standort auf der Karte:' %><br />
-	    <%= f.text_field :osm_loc %> &nbsp; 
+	    <%= f.text_field :osm_loc, {:readonly => r_o} %> &nbsp; 
 			<span id="ajax-loader"style="display:none"><%=image_tag 'ajax-loader.gif'%></span> <br /> 
 		<br/>
 		<%= f.label :latitude, 'Lat:'%> 
@@ -70,7 +79,7 @@
 	  </div>
 	  <div class="field">
 	    <%= f.label :notice, 'Hinweise:' %><br />
-	    <%= f.text_area :notice, {:rows => "6"} %>
+	    <%= f.text_area :notice, {:rows => "6",:readonly => r_o} %>
 	  </div>
 	  <div class="actions">
 	 	<%= f.submit 'Speichern' unless r_o %>	
