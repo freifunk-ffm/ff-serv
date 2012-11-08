@@ -30,7 +30,7 @@
 			<%#= link_to "Benutzer", users_path %> |
 		<%# end %>
 		<%= link_to "Start", app_index_path%> |
-		<%= link_to "Karte", url_for(:controller => 'app', :action => 'map')%> |
+		<%= link_to "Karte", map_app_index_path %> |
 		<%= link_to "Nodes", nodes_path %> |
 		<%= link_to "Tinc-Keys", tincs_path %> |
 		<p id="error"> <%= flash[:error] %></p> 

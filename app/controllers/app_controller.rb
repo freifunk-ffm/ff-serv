@@ -2,7 +2,7 @@ class AppController < ApplicationController
   before_filter :auth_as_mailman, :only => [:email_addresses]
   #Welcome page ...
   def index
-    @regable_nodes = Node.unregistered_home
+    @regable_nodes = Node.unregistered_home(request.remote_ip)
     @my_nodes = []
     @my_nodes = current_user.nodes if current_user
   end

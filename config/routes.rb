@@ -1,4 +1,5 @@
 Ffserv::Application.routes.draw do
+
   resources :tincs do
     member do
       post 'approve', 'revoke'

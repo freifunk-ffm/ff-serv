@@ -14,9 +14,9 @@ class Node < ActiveRecord::Base
   scope :unregistered, where("node_registration_id IS NULL").includes([:status])  
   scope :reg_able, unregistered.with_permissions_to(:register)
 
-  def self.unregistered_home 
+  def self.unregistered_home(ip_address) 
     Node.unregistered.joins([:status]).where(:node_statuses => 
-      {:ip => Authorization.current_user.current_sign_in_ip}
+      {:ip => ip_address}
     )
   end
 end
