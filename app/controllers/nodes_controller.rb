@@ -36,8 +36,8 @@ class NodesController < ApplicationController
   #VPN-Status aller Nodes nach down aendern - VPN wird abgeschaltet (das VPN wird mit dem Namen "vpn" benannt)
   def vpn_down
     vpn_sw = params[:vpn_sw]
-    vpn_status = VpnStatus.UNKOWN
-    Node.joins(:status).where(:node_statuses => {:vpn_sw_name => vpn_sw}).each do |node|
+    vpn_status = VpnStatus.DOWN
+    Node.all.each do |node|
       node.update_vpn_status vpn_status,"0.0.0.0",vpn_sw
     end
     render status: :created, :text => ""
