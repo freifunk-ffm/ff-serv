@@ -12,7 +12,9 @@ class Node < ActiveRecord::Base
   scope :registered, where('node_registration_id IS NOT NULL').includes([:status]) 
   scope :unregistered, where("node_registration_id IS NULL").includes([:status])  
   scope :reg_able, unregistered.with_permissions_to(:register)
-
+  
+  scope :online, joins(:status).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
+  
 
   def self.unregistered_home(ip_address) 
     Node.unregistered.joins([:status]).where(:node_statuses => 
