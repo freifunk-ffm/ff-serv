@@ -20,4 +20,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def authenticate_localhost
+       request.local?
+    end
 end

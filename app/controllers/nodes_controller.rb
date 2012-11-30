@@ -1,4 +1,6 @@
 class NodesController < ApplicationController
+  before_filter :authenticate_localhost, :only => [:update_vpn_status]
+  
   def index
     @registered = Node.registered.includes([:status,:node_registration])
     @unregistered = Node.unregistered.includes([:status,:node_registration])
@@ -16,6 +18,19 @@ class NodesController < ApplicationController
          render json: resp
        end
     end
+  end
+  
+  def update_vpn_status
+    # Request parameters
+    mac = params[:mac]
+    vpn_status_name = params[:vpn_status]
+    vpn_sw = params[:vpn_sw]
+    ip = params[:remote_ip]
+    
+    node = Node.find_or_create_by_mac mac
+    vpn_status = VpnStatus.find_by_name vpn_status_name
+    node.update_vpn_status vpn_status,ip,vpn_sw
+    render status: :created, :text => ""
   end
   
 end
