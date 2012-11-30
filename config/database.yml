@@ -35,8 +35,8 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ff_dev
+  database: ffserv2
   pool: 5
-  username: root
-  password:
+  username: ffserv2
+  password: 4yboImu0N807bXMSPEo9
   host: localhost

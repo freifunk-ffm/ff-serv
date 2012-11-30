@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class TincMailer < ActionMailer::Base
-  default from: "info@kbu.freifunk.local"
+  default from: 'info@kbu.freifunk.net'
   
   def new_approved_email(user,node)
       @user = user
@@ -17,6 +17,6 @@ class TincMailer < ActionMailer::Base
   def collision_resolve(user,node)
     @user = user
     @node = node
-    mail(:to => user.email.compact.uniq, :subject => "Node #{node.mac}: VPN-Schlüssel muss bestätigt werden")
+    mail(:to => user.email, :subject => "Node #{node.mac}: VPN-Schlüssel muss bestätigt werden")
   end
 end
