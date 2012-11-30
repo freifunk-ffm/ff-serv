@@ -17,6 +17,6 @@ class TincMailer < ActionMailer::Base
   def collision_resolve(user,node)
     @user = user
     @node = node
-    mail(:to => [user.email,node.node_registration.operator_email].compact.uniq, :subject => "Node #{node.mac}: VPN-Schlüssel muss bestätigt werden")
+    mail(:to => user.email.compact.uniq, :subject => "Node #{node.mac}: VPN-Schlüssel muss bestätigt werden")
   end
 end

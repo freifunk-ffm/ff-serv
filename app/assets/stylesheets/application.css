@@ -35,6 +35,11 @@ div.field, div.actions {
   color: green;
 }
 
+#alert {
+  color: red;
+}
+
+
 .field_with_errors {
   padding: 2px;
   background-color: red;
@@ -234,4 +239,10 @@ td.wide{
 }
 #node_map{
 	height: 600px;
+}
+#flash_notice, #flash_warn, #flash_alert{
+	color: red;
+}
+#flash_notice{
+	color: green;
 }

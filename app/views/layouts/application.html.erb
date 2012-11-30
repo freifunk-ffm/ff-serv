@@ -33,10 +33,13 @@
 		<%= link_to "Karte", map_app_index_path %> |
 		<%= link_to "Nodes", nodes_path %> |
 		<%= link_to "Tinc-Keys", tincs_path %> |
-		<p id="error"> <%= flash[:error] %></p> 
-		<p id="notice"><%= flash[:notice] %> </p>
-	</div>
+		<p />
+		<p id="flash_notice"><%= flash[:notice]%></p>
+		<p id="flash_error"><%= flash[:error]%></p>
+		<p id="flash_warn"><%= flash[:warn]%></p>
+		<p id="flash_alert"><%= flash[:alert]%></p>
 
+	</div>
 </div>
 <div id="body" >
 <%= yield %>
