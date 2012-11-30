@@ -12,6 +12,7 @@
 
 # Ignore config files
 /config/database.yml
+/config/mailman_auth.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
