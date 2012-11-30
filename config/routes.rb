@@ -27,7 +27,14 @@ Ffserv::Application.routes.draw do
       get 'map','email_addresses'
     end
   end
-  resources :nodes
+  
+  
+  resources :nodes do
+    collection do
+      post 'update_vpn_status'
+      post 'vpn_down'
+    end
+  end
   resources :node_statuses
 
   # Sample resource route with options:

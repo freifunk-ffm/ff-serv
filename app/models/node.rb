@@ -20,7 +20,6 @@ class Node < ActiveRecord::Base
     )
   end
   
-  
   def update_vpn_status(vpn_status,ip,vpn_sw)
     ip_str = "#{ip}"
     vpn_sw_str = "#{vpn_sw}"
@@ -35,6 +34,5 @@ class Node < ActiveRecord::Base
        :ip => ip_str)
     end
   end
-  
   
 end

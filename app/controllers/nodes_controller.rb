@@ -1,5 +1,5 @@
 class NodesController < ApplicationController
-  before_filter :authenticate_localhost, :only => [:update_vpn_status]
+  before_filter :authenticate_localhost, :only => [:update_vpn_status,:vpn_down]
   
   def index
     @registered = Node.registered.includes([:status,:node_registration])
@@ -20,17 +20,27 @@ class NodesController < ApplicationController
     end
   end
   
+  #VPN-Status eines Nodes aktualisieren
   def update_vpn_status
     # Request parameters
     mac = params[:mac]
     vpn_status_name = params[:vpn_status]
     vpn_sw = params[:vpn_sw]
     ip = params[:remote_ip]
-    
-    node = Node.find_or_create_by_mac mac
     vpn_status = VpnStatus.find_by_name vpn_status_name
+    node = Node.find_or_create_by_mac mac
     node.update_vpn_status vpn_status,ip,vpn_sw
     render status: :created, :text => ""
   end
-  
+
+  #VPN-Status aller Nodes nach down aendern - VPN wird abgeschaltet (das VPN wird mit dem Namen "vpn" benannt)
+  def vpn_down
+    vpn_sw = params[:vpn_sw]
+    vpn_status = VpnStatus.UNKOWN
+    Node.joins(:status).where(:node_statuses => {:vpn_sw_name => vpn_sw}).each do |node|
+      node.update_vpn_status vpn_status,"0.0.0.0",vpn_sw
+    end
+    render status: :created, :text => ""
+  end
+
 end
