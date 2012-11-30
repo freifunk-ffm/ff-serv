@@ -19,4 +19,22 @@ class Node < ActiveRecord::Base
       {:ip => ip_address}
     )
   end
+  
+  
+  def update_vpn_status(vpn_status,ip,vpn_sw)
+    ip_str = "#{ip}"
+    vpn_sw_str = "#{vpn_sw}"
+    Node.transaction do
+      old_status = self.status || NodeStatus.new
+      NodeStatus.create(
+       :fw_version => old_status.fw_version,
+       :initial_conf_version => old_status.initial_conf_version,
+       :node_id => self.id,
+       :vpn_status_id => vpn_status,
+       :vpn_sw_name => vpn_sw_str,
+       :ip => ip_str)
+    end
+  end
+  
+  
 end
