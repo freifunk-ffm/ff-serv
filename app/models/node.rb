@@ -14,7 +14,8 @@ class Node < ActiveRecord::Base
   scope :reg_able, unregistered.with_permissions_to(:register)
   
   scope :online, joins(:status).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
-  
+
+  after_create :update_collectd_list
 
   def self.unregistered_home(ip_address) 
     Node.unregistered.joins([:status]).where(:node_statuses => 
@@ -41,11 +42,16 @@ class Node < ActiveRecord::Base
     bs = self.mac.scan(/../).map {|c| c.to_i(16)}
     #Flip universal bit (6-th) bit of first octet - count from beginning
     bs[0] ^= 4
-    b = bs.map {|bm| bm.to_s(16)}
+    b = bs.map {|bm| "%02x" % bm}
     pre = b[0..2]
     center = "fffe"
     post = b[3..5]
     "fe80::" + [pre,center,post].join(':')
   end
   
+  private
+  def update_collectd_list
+    addrs = Node.all.map {|n| n.link_local_address}
+    CollectdExport.persist_ping_hosts(addrs)
+  end
 end
