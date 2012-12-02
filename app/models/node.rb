@@ -43,10 +43,12 @@ class Node < ActiveRecord::Base
     #Flip universal bit (6-th) bit of first octet - count from beginning
     bs[0] ^= 4
     b = bs.map {|bm| "%02x" % bm}
-    pre = b[0..2]
-    center = "fffe"
-    post = b[3..5]
-    "fe80::" + [pre,center,post].join(':')
+    return unless b.size == 6 #Hack for broken numbers
+    first = b[0] + b[1]
+    second = b[2] + "ff"
+    third = "fe" + b[3]
+    fourth = b[4] + b[5]
+    "fe80::" + [first,second,third,fourth].join(':')
   end
   
   private

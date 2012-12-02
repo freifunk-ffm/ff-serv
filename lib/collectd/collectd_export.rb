@@ -1,12 +1,13 @@
+require 'erb'
+
 class CollectdExport
 
-  def self.persist_ping_hosts(addresses)
-    iface = config['ping_interface']
+  def self.persist_ping_hosts(addrs)
+    addresses = addrs
+    result = CollectdExport.template.result(binding)
     File.open(config['ping_host_file'], "w", 0644) do |file|
       file.flock File::LOCK_EX
-      addresses.each do |addr|
-        file.write "Host: \"#{addr}%#{iface}\"\n"
-      end
+      file.write result
     end
     
     
@@ -19,6 +20,10 @@ class CollectdExport
 
   def self.reload
     system(config['reload_command'])
+  end
+  
+  def self.template
+    @@template ||= ERB.new(File.open("#{Rails.root}/config/collectd_ping_hosts.conf.erb", "r").read)
   end
   
 end

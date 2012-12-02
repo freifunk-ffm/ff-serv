@@ -1,3 +1,2 @@
 ping_host_file: /tmp/node_hosts.conf
-ping_interface: br-ff
 reload_command: sudo /etc/init.d/collectd restart
