@@ -11,8 +11,7 @@
 /db/*.sqlite3
 
 # Ignore config files
-/config/database.yml
-/config/mailman_auth.yml
+/config/*.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
