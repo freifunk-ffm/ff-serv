@@ -1,5 +1,5 @@
 class NodesController < ApplicationController
-  before_filter :authenticate_localhost, :only => [:update_vpn_status,:vpn_down]
+  before_filter :authenticate_localhost, :only => [:update_vpn_status,:vpn_down,:linc_local_addresses]
   
   def index
     @registered = Node.registered.includes([:status,:node_registration])
@@ -42,5 +42,4 @@ class NodesController < ApplicationController
     end
     render status: :created, :text => ""
   end
-
 end

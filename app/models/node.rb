@@ -37,4 +37,15 @@ class Node < ActiveRecord::Base
     end
   end
   
+  def link_local_address
+    bs = self.mac.scan(/../).map {|c| c.to_i(16)}
+    #Flip universal bit (6-th) bit of first octet - count from beginning
+    bs[0] ^= 4
+    b = bs.map {|bm| bm.to_s(16)}
+    pre = b[0..2]
+    center = "fffe"
+    post = b[3..5]
+    "fe80::" + [pre,center,post].join(':')
+  end
+  
 end
