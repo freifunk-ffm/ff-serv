@@ -41,7 +41,7 @@ class Node < ActiveRecord::Base
   def link_local_address
     bs = self.mac.scan(/../).map {|c| c.to_i(16)}
     #Flip universal bit (6-th) bit of first octet - count from beginning
-    bs[0] ^= 2**10
+    bs[0] ^= 2
     b = bs.map {|bm| "%02x" % bm}
     return unless b.size == 6 #Hack for broken numbers
     first = b[0] + b[1]
