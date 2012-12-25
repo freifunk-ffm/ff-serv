@@ -7,7 +7,9 @@ var reg_map = 'no init yet' //Map-Singleton for node-registration
 //Icon via asset pipeline
 var assetIcon = L.icon({
     iconUrl: '<%= asset_path "marker-icon.png" %>',
-    shadowUrl: '<%= asset_path "marker-shadow.png" %>'
+    shadowUrl: '<%= asset_path "marker-shadow.png" %>',
+    iconAnchor: [12, 40],
+    shadowAnchor: [12, 40]
 })
 
 function init_reg_map(){
