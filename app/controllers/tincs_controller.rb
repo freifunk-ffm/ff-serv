@@ -62,7 +62,7 @@ class TincsController < ApplicationController
               :ip_address => request.remote_ip,:cert_data => cert_data) # Create DB-Entry
             if node.valid_tinc.present? #Another certificate is valid for this node
               notify_admins_on_collision(node)
-#              notify_owner_on_collision(node)
+              notify_owner_on_collision(node)
               render :status => :accepted, :text => "Request accepted - owner will be notified"
             else
               ## Approve and notify

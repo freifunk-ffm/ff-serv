@@ -1,8 +1,8 @@
 <Plugin "ping">
-        Interval 30.0
-        TTL 255
-        Device "br-ff"
-        <% for addr in addresses.compact %>
-		Host "<%= addr %>"
-		<% end %>
+        Interval 10
+        Device "br-ff" <% for addr in addresses.compact %> 
+	Host "<%= addr %>"<% end %>
+	Host "172.26.1.6" 
+	Host "213.73.89.122"
+	Host "212.227.222.9"
 </Plugin>
