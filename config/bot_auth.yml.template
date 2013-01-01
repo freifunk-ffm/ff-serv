@@ -1,0 +1,8 @@
+mailman:
+  password: stuff
+
+fastd1:
+  password: stuff_as_well
+
+fastd2:
+  password: cool_stuff
