@@ -1,5 +1,5 @@
 class AppController < ApplicationController
-  before_filter :auth_as_mailman, :only => [:email_addresses]
+  before_filter :authenticate_bot, :only => [:email_addresses]
   #Welcome page ...
   def index
     @regable_nodes = Node.unregistered_home(request.remote_ip)
@@ -19,14 +19,6 @@ class AppController < ApplicationController
     render :text => addrs.uniq.join(', ')
   end
   
-  # http-auth using mailman_auth.yml's crendentials
-  # Used for protecting the address list
-  private
-  def auth_as_mailman
-    @@mailman_config ||= YAML::load_file("#{Rails.root}/config/mailman_auth.yml")
-    authenticate_or_request_with_http_basic do |username, password|
-      username == @@mailman_config['user'] && password = @@mailman_config['password']
-    end
-  end
+
   
 end

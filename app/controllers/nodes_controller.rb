@@ -1,5 +1,5 @@
 class NodesController < ApplicationController
-  before_filter :authenticate_localhost, :only => [:update_vpn_status,:vpn_down,:linc_local_addresses]
+  before_filter :authenticate_bot, :only => [:update_vpn_status,:vpn_down]
   
   def index
     @registered = Node.registered.includes([:status,:node_registration])

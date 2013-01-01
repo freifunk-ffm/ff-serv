@@ -1,7 +1,7 @@
 #!/bin/bash
 UPLOAD_URL="http://127.0.0.1:3000/tincs.txt"
 CURLC=`which curl`
-TINC_NAME="a82a142cf677"
+TINC_NAME="a82a142cf678"
 CERT_FILE="./dummy_cert.asc"
 
 
