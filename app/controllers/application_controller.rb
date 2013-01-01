@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     def authenticate_bot
       @@mailman_config ||= YAML::load_file("#{Rails.root}/config/bot_auth.yml")
       authenticate_or_request_with_http_basic do |username, password|
-        username == @@mailman_config[user].present? && password = @@mailman_config[user]['password']
+        username == @@mailman_config[username].present? && password = @@mailman_config[username]['password']
       end
     end
 end
