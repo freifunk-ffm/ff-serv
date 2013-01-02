@@ -31,8 +31,9 @@
 		
 		<% if nodes_reg.node_registration.notice.present?%>
 				<span class="node_reg_key">Hinweis:</span>
-				<span class="node_reg_value" sylte="max-width: 100px; scollring: auto">
+				<div class="node_reg_value" sylte="width: 100px; overflow: auto"
 					<pre><%= nodes_reg.node_registration.notice%></pre>
+				</div>
 		<% end %>
 		</span> <br />
 		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
