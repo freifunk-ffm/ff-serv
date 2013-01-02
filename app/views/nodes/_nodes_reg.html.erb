@@ -21,6 +21,11 @@
 			<span class="node_reg_key">Fimrware-Version:</span>
 			<span class="node_reg_value"><%= nodes_reg.status.fw_version %></span><br />
 		<% end %>
+		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
+		<%= link_to 'Status-Historie', node_statuses_path(:node => nodes_reg) %>
+		<% if permitted_to? :register, nodes_reg %>
+			| <%= link_to 'Tinc-Keys', tincs_path(:n => nodes_reg.id) %>
+		<% end %>
 		
 		<% if nodes_reg.node_registration.notice.present?%>
 				<span class="node_reg_key">Hinweis:</span>
@@ -29,14 +34,9 @@
 				</div>
 		<% end %>
 		</span> <br />
-		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
-		<%= link_to 'Status-Historie', node_statuses_path(:node => nodes_reg) %>
-		<% if permitted_to? :register, nodes_reg %>
-			| <%= link_to 'Tinc-Keys', tincs_path(:n => nodes_reg.id) %>
-		<% end %>
 	</td>
 	<td>
-		<div class="node_map" lat="<%= nodes_reg.node_registration.latitude %>" lng="<%= nodes_reg.node_registration.longitude %>" style="height: 180px; width: 400px;">	
+		<div class="node_map" lat="<%= nodes_reg.node_registration.latitude %>" lng="<%= nodes_reg.node_registration.longitude %>" style="height: 160px; width: 400px;">	
 	</td>
 	<td>
 		<img src="http://kbu.freifunk.net/stats/ping/ping_to_node-<%= nodes_reg.link_local_address%>_hour.png" />
