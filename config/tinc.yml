@@ -1,1 +1,2 @@
-key_dir: ./tmp/
+key_dir: /etc/tinc/intracity/hosts/
+
