@@ -39,6 +39,6 @@
 		<div class="node_map" lat="<%= nodes_reg.node_registration.latitude %>" lng="<%= nodes_reg.node_registration.longitude %>" style="height: 160px; width: 400px;">	
 	</td>
 	<td>
-		<img src="http://kbu.freifunk.net/stats/ping/ping_to_node-<%= nodes_reg.link_local_address%>_hour.png" />
+		<img src="<%= ping_image_url(nodes_reg)%>"
 	</td>
 </tr>
