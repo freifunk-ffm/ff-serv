@@ -32,7 +32,7 @@
 <% if nodes_reg.node_registration.notice.present?%>
 		<span class="node_reg_key">Hinweis:</span><br />
 		<span class="node_reg_value">
-			<%= text_area_tag :notice, nodes_reg.node_registration.notice, 
+			<%= text_area_tag :notice, nodes_reg.node_registration.notice, :rows => 3
 				:readonly => "readonly", :style => "border:none; color: black; width: 100%"%>
 <% end %>
 		</span> <br />
@@ -43,7 +43,7 @@
 		<% end %>
 	</td>
 	<td>
-		<div class="node_map" lat="<%= nodes_reg.node_registration.latitude %>" lng="<%= nodes_reg.node_registration.longitude %>" style="height: 160px; width: 400px;">	
+		<div class="node_map" lat="<%= nodes_reg.node_registration.latitude %>" lng="<%= nodes_reg.node_registration.longitude %>" style="height: 180px; width: 400px;">	
 	</td>
 
 </tr>
