@@ -16,7 +16,7 @@
 		<span class="node_reg_key">Standort:</span>
 		<span class="node_reg_value"> 
 			<%= nodes_reg.node_registration.loc_str[0,40] %><%= '...' if nodes_reg.node_registration.loc_str.size > 40%>
-		</span></br>
+		</span><br />
 		<% if nodes_reg.status.fw_version.present?%>
 			<span class="node_reg_key">Fimrware-Version:</span>
 			<span class="node_reg_value"><%= nodes_reg.status.fw_version %></span><br />
@@ -26,7 +26,7 @@
 		<% if permitted_to? :register, nodes_reg %>
 			| <%= link_to 'Tinc-Keys', tincs_path(:n => nodes_reg.id) %>
 		<% end %>
-		
+		<br />
 		<% if nodes_reg.node_registration.notice.present?%>
 				<span class="node_reg_key">Hinweis:</span>
 				<div class="node_reg_value" style="width: 380px; overflow: auto">
