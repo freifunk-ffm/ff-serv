@@ -32,7 +32,9 @@
 <% if nodes_reg.node_registration.notice.present?%>
 		<span class="node_reg_key">Hinweis:</span>
 		<span class="node_reg_value">
-			<pre><%= nodes_reg.node_registration.notice%></pre>
+			<%= text_area_tag :notice, nodes_reg.node_registration.notice, 
+				:rows => 20, :cols => 5, 
+				{:readonly => "readonly", :style => "border:none"} %>
 <% end %>
 		</span> <br />
 		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
