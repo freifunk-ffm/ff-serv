@@ -1,4 +1,5 @@
 class Node < ActiveRecord::Base
+  include 'netaddr'
   using_access_control
   
   attr_accessible :mac, :registration_id
@@ -36,6 +37,13 @@ class Node < ActiveRecord::Base
        :vpn_sw_name => vpn_sw_str,
        :ip => ip_str)
     end
+  end
+  
+  # No leading 0 in groups
+  def link_local_address_short
+    bs = self.mac.scan(/../).join(':')
+    addr = NetAddr::EUI.create(bs)
+    addr.link_local(:Short => true)
   end
   
   def link_local_address
