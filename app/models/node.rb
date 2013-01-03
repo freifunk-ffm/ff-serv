@@ -1,5 +1,5 @@
 class Node < ActiveRecord::Base
-  include 'netaddr'
+  require 'netaddr'
   using_access_control
   
   attr_accessible :mac, :registration_id
