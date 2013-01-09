@@ -9,7 +9,8 @@ var assetIcon = L.icon({
     iconUrl: '<%= asset_path "marker-icon.png" %>',
     shadowUrl: '<%= asset_path "marker-shadow.png" %>',
     iconAnchor: [12, 40],
-    shadowAnchor: [12, 40]
+    shadowAnchor: [12, 40],
+    popupAnchor: [0,-37]
 })
 
 function init_reg_map(){
