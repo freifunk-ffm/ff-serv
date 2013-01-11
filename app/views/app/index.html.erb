@@ -18,6 +18,13 @@ Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelde
 </p>
 <% end %>
 
+<div class="cacert_warning">
+		<span class="bold">Achtung - CAcert</span><br />
+		Zur Verschlüsselung wird ein <i>CAcert</i>-Zertifikat verwenden, dass nicht in allen Browser überprüft werden kann. <br />
+		Daher kann es einigen Bereichen (z.B. Login) zu <span class="bold">Fehlern kommen</span>. <br />
+		Details siehe <a href="http://de.wikipedia.org/wiki/CAcert#Vertrauensw.C3.BCrdigkeit"> Wikipedia</a>. <br />
+</div>
+
 <% if @regable_nodes.size > 0 %>
 	<h2>Eigene, unregistrierte Nodes</h2>
 	<% if signed_in? %>
