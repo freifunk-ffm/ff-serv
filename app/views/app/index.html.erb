@@ -18,13 +18,15 @@ Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelde
 </p>
 <% end %>
 
+<% unless request.ssl? %>
 <div class="cacert_warning">
 		<span class="bold">Achtung - CAcert</span><br />
 		Zur Verschlüsselung wird ein <i>CAcert</i>-Zertifikat verwenden, dass nicht in allen Browser überprüft werden kann. <br />
 		Daher kann es einigen Bereichen (z.B. Login) zu <span class="bold">Fehlern kommen</span>. <br />
 		Details siehe <a href="http://de.wikipedia.org/wiki/CAcert#Vertrauensw.C3.BCrdigkeit"> Wikipedia</a>. <br />
+		Nach Überprüfung des Zertifikats empfehlen wir die Awendung per SSL zu benutzen. <a href="https://register.kbu.freifunk.net">https://register.kbu.freifunk.net</a>
 </div>
-
+<% end %>
 <% if @regable_nodes.size > 0 %>
 	<h2>Eigene, unregistrierte Nodes</h2>
 	<% if signed_in? %>
