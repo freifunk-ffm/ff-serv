@@ -4,6 +4,11 @@ module ApplicationHelper
   end
   def read_only(form)
     model = form.object
+    return read_only_object(model)
+  end
+  
+  
+  def read_only_object(model)
     method = form.options[:html][:method]
     if(method == :put)
       return(!model.permitted_to? :update)

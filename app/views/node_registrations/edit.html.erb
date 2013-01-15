@@ -9,3 +9,7 @@ Die Registrierung Deines Nodes erlaubt es uns, Dich bei Problemen zu verständig
 <p />
 <%= render 'form' %>
 
+<%= link_to 'Registrierung löschen', @node_registration, method: :delete, data: { 
+		confirm: 'Registrierung wird gelöscht.' 
+	} unless read_only_object(f) %>
+
