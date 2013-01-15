@@ -1,7 +1,8 @@
 # encoding: UTF-8
 class NodeRegistration < ActiveRecord::Base
   using_access_control
-
+  before_destroy :zero_node
+  
   validates_presence_of :operator_name
   validates_presence_of :operator_email
   validates_presence_of :name
@@ -17,5 +18,10 @@ class NodeRegistration < ActiveRecord::Base
 
   def node_at=(attrs)
     self.node = Node.find(attrs[:id])
+  end
+
+  private
+  def zero_node
+    self.node.update_attribute(:node_registration_id,nil)
   end
 end

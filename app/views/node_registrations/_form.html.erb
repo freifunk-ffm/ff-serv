@@ -81,7 +81,11 @@
 	    <%= f.text_area :notice, {:rows => "6",:readonly => r_o} %>
 	  </div>
 	  <div class="actions">
-	 	<%= f.submit 'Speichern' unless r_o %>	
+	 	<%= f.submit 'Speichern' unless r_o %>
+		
+		<%= link_to 'Registrierung löschen', form.object, method: :delete, data: { 
+				confirm: 'Registrierung wird gelöscht.' 
+			} unless read_only_object(r_o) || form.object.new_record? %>	
 </fieldset>
 <% end %>
 </div>
