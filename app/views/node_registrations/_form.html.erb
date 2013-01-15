@@ -7,6 +7,7 @@
 
 <div class="left">
 <%= form_for(@registration) do |f| %>
+<% r_o = read_only(f)%>
 
   <% if @registration.errors.any? %>
     <div id="error_explanation">
