@@ -84,7 +84,7 @@ class NodeRegistrationsController < ApplicationController
     @registration.destroy
 
     respond_to do |format|
-      format.html { redirect_to node_registrations_url }
+      format.html { redirect_to nodes_url }
       format.json { head :no_content }
     end
   end
