@@ -9,4 +9,8 @@ module NodesHelper
     end
     url += "_hour.png"
   end
+
+  def thruput_image_url(node)
+    url = "http://kbu.freifunk.net/stats/nodes_traffic/#{node.mac}_day.png"
+  end
 end
