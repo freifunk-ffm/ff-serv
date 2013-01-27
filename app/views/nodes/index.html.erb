@@ -7,7 +7,9 @@
 		$('div.node_map').each(function(index, value) { 
 			var lat = $( value ).attr('lat')
 			var lng = $( value ).attr('lng')
-			init_node_map(value, lat, lng)
+			if(lat!==""&&lng!==""){
+				init_node_map(value, lat, lng)
+			}
 		});
 	});
 	
