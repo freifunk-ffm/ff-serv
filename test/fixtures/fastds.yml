@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  node_id: 1
+  fw_version: MyString
+  key: MyString
+
+two:
+  node_id: 1
+  fw_version: MyString
+  key: MyString

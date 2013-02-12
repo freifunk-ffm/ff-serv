@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021123352) do
+ActiveRecord::Schema.define(:version => 20130212165849) do
+
+  create_table "fastds", :force => true do |t|
+    t.integer  "node_id"
+    t.string   "fw_version"
+    t.string   "key"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "vpn_server"
+  end
 
   create_table "node_registrations", :force => true do |t|
     t.string   "name"
@@ -41,10 +50,12 @@ ActiveRecord::Schema.define(:version => 20121021123352) do
     t.datetime "created_at",           :null => false
     t.datetime "expired_at"
     t.string   "ip"
+    t.string   "viewpoint"
   end
 
   add_index "node_statuses", ["ip"], :name => "index_node_statuses_on_ip"
   add_index "node_statuses", ["node_id"], :name => "index_node_statuses_on_node_id"
+  add_index "node_statuses", ["viewpoint"], :name => "index_node_statuses_on_viewpoint"
   add_index "node_statuses", ["vpn_status_id"], :name => "index_node_statuses_on_vpn_status_id"
 
   create_table "nodes", :force => true do |t|
@@ -112,5 +123,18 @@ ActiveRecord::Schema.define(:version => 20121021123352) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "watchdog_bites", :force => true do |t|
+    t.integer  "node_id"
+    t.datetime "node_stmp"
+    t.datetime "submission_stmp"
+    t.text     "log_data"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "watchdog_bites", ["node_id"], :name => "index_watchdog_bites_on_node_id"
+  add_index "watchdog_bites", ["node_stmp"], :name => "index_watchdog_bites_on_node_stmp"
+  add_index "watchdog_bites", ["submission_stmp"], :name => "index_watchdog_bites_on_submission_stmp"
 
 end

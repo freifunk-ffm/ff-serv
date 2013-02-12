@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  node_id: 1
+  node_stmp: 
+  submission_stmp: 2013-02-12 17:58:49
+  log_data: MyText
+
+two:
+  node_id: 1
+  node_stmp: 
+  submission_stmp: 2013-02-12 17:58:49
+  log_data: MyText

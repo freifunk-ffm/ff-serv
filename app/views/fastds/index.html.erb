@@ -1,0 +1,24 @@
+<% content_for :head do %>
+  <h1>Fastd-Schlüssel</h1>
+<% end %>
+
+<h2>Eingereichte fastd-Schlüssel</h2>
+<table cellspacing="0" cellpadding="3">
+  <tr>
+    <th>Node</th>
+    <th>Firmware-Version</th>
+    <th>Key</th>
+    <th>Erstmalig eingereicht</th>
+    <th>Letztmalig eingereicht</th>
+  </tr>
+
+<% @fastds.each do |fastd| %>
+  <tr class="<%= cycle('odd','even') %>">
+    <td class="monospaced" ><%= fastd.node.mac %></td>
+    <td class="monospaced" ><%= fastd.fw_version %></td>
+    <td class="monospaced" ><%= fastd.key %></td>
+    <td><%= I18n.l  fastd.created_at, :format => :short %></td>
+    <td><%= I18n.l  fastd.updated_at, :format => :short %></td>
+  </tr>
+<% end %>
+</table>

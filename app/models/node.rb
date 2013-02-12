@@ -1,6 +1,7 @@
 class Node < ActiveRecord::Base
   require 'netaddr'
   using_access_control
+  validates_format_of :mac, :with => /^[0-9a-f]{12}$/i
   
   attr_accessible :mac, :registration_id
   

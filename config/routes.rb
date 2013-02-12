@@ -1,5 +1,11 @@
 Ffserv::Application.routes.draw do
 
+  resources :watchdog_bites
+
+
+  resources :fastds
+
+
   resources :tincs do
     member do
       post 'approve', 'revoke'

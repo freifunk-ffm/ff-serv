@@ -1,0 +1,33 @@
+<% content_for (:head) do%>
+<h1>Wachhund</h1>
+<% end %>
+
+<h2>Ereignis-Details</h2>
+
+<table cellspacing="0" cellpadding="3">
+  <tr>
+    <th>Node</th>
+    <th>Zeitstempel (Node-Zeit)</th>
+    <th>Zeitstempel (Reporting-Server)</th>
+    <th>Zeitstempel (Monitoring)</th>
+  </tr>
+
+  <tr>
+    <td class="monospaced"><%= @watchdog_bite.node_mac %></td>
+    <td class="wide"><%= I18n.l @watchdog_bite.node_stmp, :format => :short 
+		if @watchdog_bite.node_stmp %>
+	</td>
+    <td class="wide"><%= I18n.l @watchdog_bite.submission_stmp, :format => :short 
+		if @watchdog_bite.submission_stmp %>
+	</td>
+    <td class="wide"><%= I18n.l @watchdog_bite.created_at, :format => :short %></td>
+</tr>
+</table>
+
+<pre>
+<%= @watchdog_bite.log_data %>
+</pre>
+<%= link_to "Zurück", watchdog_bites_path%>
+
+<br />
+

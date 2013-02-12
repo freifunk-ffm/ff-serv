@@ -19,7 +19,7 @@ class NodesController < ApplicationController
        end
     end
   end
-  
+
   #VPN-Status eines Nodes aktualisieren
   def update_vpn_status
     # Request parameters
