@@ -28,7 +28,7 @@ class WatchdogBitesController < ApplicationController
         :submission_stmp => Time.at((submission_stmp || 0).to_i)
       })
       w_b.save!
-      render format.json { render json: w_b, status: :created, location: w_b }
+      render json: w_b, status: :created, location: w_b
     end
   end
 
