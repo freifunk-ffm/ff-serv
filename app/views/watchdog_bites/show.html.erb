@@ -13,7 +13,7 @@
   </tr>
 
   <tr>
-    <td class="monospaced"><%= @watchdog_bite.node_mac %></td>
+    <td class="monospaced"><%= @watchdog_bite.node.mac %></td>
     <td class="wide"><%= I18n.l @watchdog_bite.node_stmp, :format => :short 
 		if @watchdog_bite.node_stmp %>
 	</td>
