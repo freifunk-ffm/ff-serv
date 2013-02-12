@@ -24,8 +24,8 @@ class WatchdogBitesController < ApplicationController
       w_b = WatchdogBite.new({
         :log_data => log_data, 
         :node_id => node.id, 
-        :node_stmp => Time.at(node_stmp || 0) , 
-        :submission_stmp => Time.at(submission_stmp || 0)
+        :node_stmp => Time.at((node_stmp || 0).to_i) , 
+        :submission_stmp => Time.at((submission_stmp || 0).to_i)
       })
       w_b.save!
       render format.json { render json: w_b, status: :created, location: w_b }
