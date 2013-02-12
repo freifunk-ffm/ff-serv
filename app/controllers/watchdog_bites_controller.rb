@@ -1,4 +1,5 @@
 class WatchdogBitesController < ApplicationController
+  before_filter :authenticate_bot, :only => [:create]
   # GET /watchdog_bites
   # GET /watchdog_bites.json
   def index
