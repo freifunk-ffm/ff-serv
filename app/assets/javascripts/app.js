@@ -20,13 +20,11 @@ function init_nodes_map(){
 		var node = val.node
 		var reg = val.node_registration
 		var vpn_status = val.vpn_status.name
-		if(!(reg.latitude===null || reg.longitude===null)){
-			var marker = L.marker([reg.latitude,reg.longitude],{icon: assetIcon}).addTo(map);
-			marker.bindPopup("<b><a href='/node_registrations/"+reg.id+"/edit'>" + reg.name + "</a></b><br />"+
-				"<a href='/node_statuses?node="+node.id+"'>VPN-Status</a>: <span class='vpn_status"+vpn_status+"' >"+vpn_status + "</span>" + 
-				"<br />Node-ID: <span class='monospaced'>"+node.mac+"</span> <br />"+
-				"Letzte &Auml;nderung: " + status.created_at).openPopup()
-		}
-	 });
+		var marker = L.marker([reg.latitude,reg.longitude],{icon: assetIcon}).addTo(map);;
+		marker.bindPopup("<b><a href='/node_registrations/"+reg.id+"/edit'>" + reg.name + "</a></b><br />"+
+			"<a href='/node_statuses?node="+node.id+"'>VPN-Status</a>: <span class='vpn_status"+vpn_status+"' >"+vpn_status + "</span>" + 
+			"<br />Node-ID: <span class='monospaced'>"+node.mac+"</span> <br />"+
+			"Letzte &Auml;nderung: " + status.created_at).openPopup()
+		});
 	})
 }
