@@ -43,6 +43,8 @@ class Node < ActiveRecord::Base
   def fw_version
     if fastds.size > 1 
       fastds.order("updated_at ASC").first.fw_version
+    elsif status && status.vpn_sw_name == 'fastd'
+      "1.0"
     else
       "< 1.0"
     end
