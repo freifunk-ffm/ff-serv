@@ -16,7 +16,7 @@ class NodesController < ApplicationController
                :fw_version => ActionView::Base.full_sanitizer.sanitize(node.fw_version)},
              :node_registration => 
                 { id: reg.id, 
-                  atitude: reg.latitude, 
+                  latitude: reg.latitude, 
                   longitude: reg.longitude, 
                   name: ActionView::Base.full_sanitizer.sanitize(reg.name),
                   operator_name: ActionView::Base.full_sanitizer.sanitize(reg.operator_name),
