@@ -36,30 +36,24 @@
 	    <%= f.label :name, 'Name des Nodes (frei wählbar):' %><br />
 	    <%= f.text_field :name, {:readonly => r_o}%>
 	  </div>
+<% if permitted_to? :set_owner, @registration%>
 	   <div  class="field" >
 		    <%= f.label :user_id, 'Eigentümer:' %><br />
-			<% if permitted_to? :set_owner, @registration%>
-				<%= f.select :owner_id, User.all.map { |u| [u.email,u.id]} %>
-			<% else %>
-				<span> <%= @registration.owner %> </span>
-			<% end %>
-		
-		
+			<%= f.select :owner_id, User.all.map { |u| [u.email,u.id]} %>
 		</div>
-<!--	   <div  class="field left" >
-	    <%= f.label :user_id, 'Registriert durch:' %><br />
-		<span>	 <%= @registration.owner %> </span>
-	  </div>
-	   <div style="float:none">
-		<%#= image_tag f.object.user.image_url + "?s=60"%>
-		</div>
--->	   <div class="field">
+<% end %>
+
+	<div class="field">
 	    <%= f.label :operator_name, 'Name des Betreibers / Aufstellers:' %><br />
-	    <%= f.text_field :operator_name, {:readonly => r_o} %>
+	<%= f.text_field :operator_name, {:readonly => r_o} %>
 	  </div>
 	  <div class="field">
 	    <%= f.label :operator_email, 'Öffentliche E-Mail-Adresse für Anfragen:' %><br />
-	    <%= f.text_field :operator_email, {:readonly => r_o} %>
+		<% if r_o%>	
+				<%= mail_to f.object.operator_email, f.object.operator_email, :encode => "javascript"%>
+		<% else %>
+	    	<%= f.text_field :operator_email%>
+		<% end %>
 	  </div>
 	  <div class="field">
 	    <%= f.label :loc_str, 'Standort des Nodes' %><br />

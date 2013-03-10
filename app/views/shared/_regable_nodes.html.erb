@@ -8,6 +8,7 @@
 	<th> &nbsp; </th>
 </tr>
 	<% for node in regable_nodes %>
+<% if node.status %>
 	<tr class="<%= cycle('odd','even')%>">
 		<td class="monospaced"><%= node.mac %></td>
 		<td><span class="vpn_status<%=node.status.vpn_status%>"><%= node.status.vpn_status %></span></td> 
@@ -15,6 +16,7 @@
 		<td class="monospaced"><%= node.status.initial_conf_version%></td>
 		<td><%= I18n.l node.status.created_at, :format => :short%> Uhr</td>
 		<td><%= link_to icon_tag('map_add','Registrieren'), new_node_registration_path(:node => node) if node.permitted_to?(:register)%>
+<% end %>
 
 	</tr>
 	<% end %>

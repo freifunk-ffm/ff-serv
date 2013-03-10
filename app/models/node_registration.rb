@@ -1,5 +1,9 @@
 # encoding: UTF-8
+require 'crypt/rot13'
+
 class NodeRegistration < ActiveRecord::Base
+  include Crypt
+  
   using_access_control
   before_destroy :zero_node
   
@@ -18,6 +22,10 @@ class NodeRegistration < ActiveRecord::Base
 
   def node_at=(attrs)
     self.node = Node.find(attrs[:id])
+  end
+
+  def operator_emaiL_rot13
+    Rot13.new("#{operator_emaiL}", 13)
   end
 
   private

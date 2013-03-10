@@ -7,20 +7,18 @@
 		<span class="node_reg_key">Kontakt:</span>
 		<span class="node_reg_value">
 			<%= nodes_reg.node_registration.operator_name %> 
-			(<%= link_to mail_to(
-				nodes_reg.node_registration.operator_email,
-				nodes_reg.node_registration.operator_email, 
-				:subject => "Freifunk-KBU-Node #{nodes_reg.mac}")%>)
+			(<%= mail_to nodes_reg.node_registration.operator_email,
+			 	nodes_reg.node_registration.operator_email,
+			 	{:encode => "javascript", :subject => "Freifunk-KBU-Node #{nodes_reg.mac}"}%>)
 		</span> <br />
 
 		<span class="node_reg_key">Standort:</span>
 		<span class="node_reg_value"> 
 			<%= nodes_reg.node_registration.loc_str[0,40] %><%= '...' if nodes_reg.node_registration.loc_str.size > 40%>
 		</span><br />
-		<% if nodes_reg.status.fw_version.present?%>
-			<span class="node_reg_key">Fimrware-Version:</span>
-			<span class="node_reg_value"><%= nodes_reg.status.fw_version %></span><br />
-		<% end %>
+		<span class="node_reg_key">Firmware-Version:</span>
+		<span class="node_reg_value"><%= nodes_reg.fw_version %></span><br />
+
 		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
 		<%= link_to 'Status-Historie', node_statuses_path(:node => nodes_reg) %>
 		<% if permitted_to? :register, nodes_reg %>
@@ -41,8 +39,4 @@
 	<td>
 		<img src="<%= ping_image_url(nodes_reg)%>" >
 	</td>
-<!--     <td>
-        <img src="<%= thruput_image_url(nodes_reg)%>" >
-    </td>
--->
 </tr>

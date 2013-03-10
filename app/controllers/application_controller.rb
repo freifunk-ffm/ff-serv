@@ -1,4 +1,6 @@
+require 'crypt/rot13'
 class ApplicationController < ActionController::Base
+  include Crypt
   protect_from_forgery
   before_filter :copy_user
   
@@ -33,6 +35,8 @@ class ApplicationController < ActionController::Base
        request.local?
     end
 
+    
+
     # http-auth using mailman_auth.yml's crendentials
     # Used for protecting the address list
     private
@@ -41,5 +45,9 @@ class ApplicationController < ActionController::Base
       authenticate_or_request_with_http_basic do |username, password|
         @@mailman_config[username].present? && password == @@mailman_config[username]['password']
       end
+    end
+    
+    def r_23(str)
+      str = Rot13.new("#{str}", 23)
     end
 end

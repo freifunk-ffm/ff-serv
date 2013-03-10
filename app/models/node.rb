@@ -4,7 +4,7 @@ class Node < ActiveRecord::Base
   validates_format_of :mac, :with => /^[0-9a-f]{12}$/i
   
   attr_accessible :mac, :registration_id
-  
+  has_many :fastds
   has_many :node_statuses
   has_many :tincs
   has_one  :valid_tinc, :conditions => 'approved_at IS NOT NULL and revoked_at IS NULL', :class_name => 'Tinc'
@@ -40,6 +40,14 @@ class Node < ActiveRecord::Base
     end
   end
   
+  def fw_version
+    if fastds.size > 1 
+      fastds.order("updated_at ASC").first.fw_version
+    else
+      "< 1.0"
+    end
+  end
+  
   # No leading 0 in groups
   def link_local_address_short
     bs = self.mac.scan(/../).join(':')
@@ -60,6 +68,7 @@ class Node < ActiveRecord::Base
     "fe80::" + [first,second,third,fourth].join(':')
   end
   
+
   private
   def update_collectd_list
     addrs = Node.all.map {|n| n.link_local_address}

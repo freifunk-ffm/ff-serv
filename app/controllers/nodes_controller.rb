@@ -2,7 +2,7 @@ class NodesController < ApplicationController
   before_filter :authenticate_bot, :only => [:update_vpn_status,:vpn_down]
   
   def index
-    @registered = Node.registered.includes([:status,:node_registration])
+    @registered = Node.registered.includes([:status,:node_registration,:fastds])
     @unregistered = Node.unregistered.includes([:status,:node_registration])
     
     respond_to do |format|
@@ -12,8 +12,20 @@ class NodesController < ApplicationController
            reg = node.node_registration
            {:vpn_status => {:name => node.status.vpn_status.name},
              :status => {:created_at => I18n.l(node.status.created_at, :format => :short)},
-             :node => {:id => node.id, :mac => node.mac},
-             :node_registration => {:id => reg.id, :latitude => reg.latitude, :longitude => reg.longitude, :name => ActionView::Base.full_sanitizer.sanitize(reg.name)}}
+             :node => {:id => node.id, :mac => node.mac, :mac_dec => node.mac.to_i(16)},
+             :node_registration => 
+                { id: reg.id, 
+                  atitude: reg.latitude, 
+                  longitude: reg.longitude, 
+                  name: ActionView::Base.full_sanitizer.sanitize(reg.name),
+                  operator_name: ActionView::Base.full_sanitizer.sanitize(reg.operator_name),
+                  operator_email: r_23(ActionView::Base.full_sanitizer.sanitize(reg.operator_email)),
+                  loc_str: ActionView::Base.full_sanitizer.sanitize(reg.loc_str),
+                  osm_loc: ActionView::Base.full_sanitizer.sanitize(reg.osm_loc),
+                  created_at: reg.created_at,
+                  updated_at: reg.updated_at
+                }
+            }
          end
          render json: resp
        end

@@ -12,6 +12,7 @@ module ApplicationHelper
     end
   end
   
+
   
   def read_only_object(model)
       return(!model.permitted_to? :update)
