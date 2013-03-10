@@ -12,7 +12,8 @@ class NodesController < ApplicationController
            reg = node.node_registration
            {:vpn_status => {:name => node.status.vpn_status.name},
              :status => {:created_at => I18n.l(node.status.created_at, :format => :short)},
-             :node => {:id => node.id, :mac => node.mac, :mac_dec => node.mac.to_i(16)},
+             :node => {:id => node.id, :mac => node.mac, :mac_dec => node.mac.to_i(16), 
+               :fw_version => ActionView::Base.full_sanitizer.sanitize(node.fw_version)},
              :node_registration => 
                 { id: reg.id, 
                   atitude: reg.latitude, 
