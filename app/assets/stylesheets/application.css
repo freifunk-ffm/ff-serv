@@ -211,11 +211,9 @@ td.vpn_statusup{
 }
 span.vpn_statusdown{
 	color: #A00;
-	font-weight: bold;
 }
 span.vpn_statusup{
 	color: #0A0;
-	font-weight: bold;
 }
 .collision_warning, .cacert_warning{
 	background-color: #DDD;
@@ -250,3 +248,26 @@ td.wide{
 #flash_notice{
 	color: green;
 }
+.grade_1{
+	color: #0A0;
+}
+
+.grade_2{
+	color: #5A0;
+}
+
+.grade_3{
+	color: #AA0;
+}
+.grade_4{
+	color: #A60;
+}
+.grade_5{
+	color: #730;
+}
+.grade_6{
+	color: #700;
+}
+
+
+
