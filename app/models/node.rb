@@ -1,5 +1,6 @@
 class Node < ActiveRecord::Base
   require 'netaddr'
+  require 'net/http'
   using_access_control
   validates_format_of :mac, :with => /^[0-9a-f]{12}$/i
   
@@ -18,6 +19,13 @@ class Node < ActiveRecord::Base
   scope :online, joins(:status).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
 
   after_create :update_collectd_list
+  after_create :add_mac_to_stat
+  
+  def add_mac_to_stat
+    uri = URI('http://collectd.kbu.freifunk.net/nodes/add_macs')
+    res = Net::HTTP.post_form(uri, 'mac' => [mac])
+    puts res.body
+  end
 
   def self.unregistered_home(ip_address) 
     Node.unregistered.joins([:status]).where(:node_statuses => 
