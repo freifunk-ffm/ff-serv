@@ -1,6 +1,7 @@
 <table  cellspacing="0" cellpadding="3">
 <tr>
 	<th>Node-ID (MAC)</th>
+	<th>Link-Local-Adresse</th>
 	<th>VPN-Status</th>
 	<th>Firmware-Version</th>
 	<th>Letzte Status-Änderung</th>
@@ -10,6 +11,7 @@
 <% if node.status %>
 	<tr class="<%= cycle('odd','even')%>">
 		<td class="monospaced"><%= node.mac %></td>
+		<td class="monospaced"><%= node.link_local_address_short %></td>
 		<td><span class="vpn_status<%=node.status.vpn_status%>"><%= node.status.vpn_status %></span></td> 
 		<td class="monospaced"><%= node.fw_version%></td>
 		<td><%= I18n.l node.status.created_at, :format => :short%> Uhr</td>

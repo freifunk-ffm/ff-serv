@@ -18,7 +18,8 @@
 		</span><br />
 		<span class="node_reg_key">Firmware-Version:</span>
 		<span class="node_reg_value"><%= nodes_reg.fw_version %></span><br />
-
+		<span class="node_reg_key">Link-Local-Adresse:</span>
+		<span class="node_reg_value monospaced"><%= nodes_reg.link_local_address_short %></span> <br />
 		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
 		<%= link_to 'Status-Historie', node_statuses_path(:node => nodes_reg) %>
 		<% if permitted_to? :register, nodes_reg %>
