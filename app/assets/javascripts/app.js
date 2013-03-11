@@ -72,7 +72,7 @@ function popup_text(node_json,node_status_json){
 		var loss = node_status_json.loss_5_min
 		var grade = grade_node_status(rtt,loss)
 		status_str = "Erreichbarkeit: "+grade_string(grade) + "<br />"
-		ping_str = "Ping: " + rtt + "ms - Verlust: " + loss + "%<br />"
+		ping_str = "Ping: " + rtt + "ms - Verlust: " + Math.round(loss*100) + "%<br />"
 		
 	}
 	// Element
