@@ -28,6 +28,7 @@ function init_nodes_map(){
 			}
 		});
 		// Referesh 15 secs. (ping interval of collectd.kbu.freifunk.net)
+		update_node_status(markers);
 		setInterval(function(){
 			update_node_status(markers)
 		},15000);
