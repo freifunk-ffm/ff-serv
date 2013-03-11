@@ -20,10 +20,12 @@ function init_nodes_map(){
 	  	$.each(data, function(key, val) {
 			var id_hex = val.node.mac_dec
 			var reg = val.node_registration
-			var marker = L.marker([reg.latitude,reg.longitude],{icon: assetIcon}).addTo(map)
-			marker.bindPopup(wrap_marker_span(popup_text(val,null),id_hex)).openPopup() // Since leaflet itself is unable to update its markers
-																				  // Well will update the content by refering to its span
-			markers[id_hex] = {node: val, l_marker: marker}
+			if(reg.latitude && reg.longitude){
+				var marker = L.marker([reg.latitude,reg.longitude],{icon: assetIcon}).addTo(map)
+				marker.bindPopup(wrap_marker_span(popup_text(val,null),id_hex)).openPopup() // Since leaflet itself is unable to update its markers
+																					  // We'll will update the content by refering to its span
+				markers[id_hex] = {node: val, l_marker: marker}
+			}
 		});
 		update_node_status(markers)
 	}).error(function(jqXHR,error, errorThrown) {  
