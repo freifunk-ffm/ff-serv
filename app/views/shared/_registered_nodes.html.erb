@@ -3,7 +3,6 @@
 	<th>Node-ID (MAC)</th>
 	<th>VPN-Status</th>
 	<th>Firmware-Version</th>
-	<th>Config-Version</th>
 	<th>Letzte Status-Änderung</th>
 	<th> &nbsp; </th>
 </tr>
@@ -11,8 +10,7 @@
 	<tr class="<%= cycle('odd','even')%>">
 		<td class="monospaced"><%= node.mac %></td>
 		<td><span class="vpn_status<%=node.status.vpn_status%>"><%= node.status.vpn_status %></span></td> 
-		<td class="monospaced"><%= node.status.fw_version%></td>
-		<td class="monospaced"><%= node.status.initial_conf_version%></td>
+		<td class="monospaced"><%= node.fw_version%></td>
 		<td><%= I18n.l node.status.created_at, :format => :short%> Uhr</td>
 		<td>
 			<%= link_to icon_tag('map_edit','Registrierung'), edit_node_registration_path(node.node_registration) %>
