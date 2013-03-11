@@ -27,7 +27,10 @@ function init_nodes_map(){
 				markers[id_hex] = {node: val, l_marker: marker}
 			}
 		});
-		update_node_status(markers)
+		// Referesh 15 secs. (ping interval of collectd.kbu.freifunk.net)
+		setInterval(function(){
+			update_node_status(markers)
+		},15000);
 	}).error(function(jqXHR,error, errorThrown) {  
 	      	alert("Unable to get nodes: " + error) 
 		})
@@ -50,11 +53,6 @@ function update_node_status(markers){
 			}
 			
 		})
-		// Referesh 15 secs. (ping interval of collectd.kbu.freifunk.net)
-		setTimeout(function(){
-			update_node_status(markers)
-		},15000);
-
 	}).error(function(jqXHR,error, errorThrown) {  
       	alert("Unable to update node status: " + error) 
 	})
