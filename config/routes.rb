@@ -6,11 +6,11 @@ Ffserv::Application.routes.draw do
   resources :fastds
 
 
-  resources :tincs do
-    member do
-      post 'approve', 'revoke'
-    end
-  end
+#  resources :tincs do
+#    member do
+#      post 'approve', 'revoke'
+#    end
+#  end
 
   resources :node_registrations
 
