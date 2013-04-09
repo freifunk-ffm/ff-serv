@@ -18,7 +18,6 @@ class Node < ActiveRecord::Base
   
   scope :online, joins(:status).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
 
-  after_create :update_collectd_list
   after_create :add_mac_to_stat
   
   def add_mac_to_stat
@@ -76,12 +75,5 @@ class Node < ActiveRecord::Base
     third = "fe" + b[3]
     fourth = b[4] + b[5]
     "fe80::" + [first,second,third,fourth].join(':')
-  end
-  
-
-  private
-  def update_collectd_list
-    addrs = Node.all.map {|n| n.link_local_address}
-    CollectdExport.persist_ping_hosts(addrs)
   end
 end
