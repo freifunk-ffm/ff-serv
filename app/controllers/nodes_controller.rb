@@ -4,7 +4,9 @@ class NodesController < ApplicationController
   def index
     @registered = Node.registered.includes([:status,:node_registration,:fastds])
     @unregistered = Node.unregistered.includes([:status,:node_registration])
-    
+
+    @registered.sort_by!{|node| node.status.vpn_status}
+
     respond_to do |format|
       format.html # index.html.erb
       format.json do
