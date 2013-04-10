@@ -44,4 +44,4 @@ gem 'haml-rails'
 gem 'devise'
 gem "declarative_authorization"
 gem 'geocoder'
-gem "crypt-rot13", :git => 'https://github.com/djberg96/crypt-rot13.git'
+gem "crypt-rot13"

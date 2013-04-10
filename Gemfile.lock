@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/djberg96/crypt-rot13.git
-  revision: 31bf468af76209eecc15c4b861b91dadf83d068d
-  specs:
-    crypt-rot13 (1.0.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -44,6 +38,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    crypt-rot13 (1.0.5)
     declarative_authorization (0.5.6)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -138,7 +133,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
-  crypt-rot13!
+  crypt-rot13
   declarative_authorization
   devise
   geocoder
