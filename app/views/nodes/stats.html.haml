@@ -1,0 +1,15 @@
+- content_for (:head) do
+  %h1= "Node Statistik"
+
+%h2= @node.node_registration.name
+
+%h3 Erreichbarkeit
+
+%img{src: ping_image_url(@node)}
+
+%h3 Datendurchsatz
+
+- %w{br-wan wlan0-1}.each do |interface|
+  %h4= interface
+  %img{src: thruput_image_url(@node,interface)}
+

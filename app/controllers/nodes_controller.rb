@@ -55,4 +55,8 @@ class NodesController < ApplicationController
     end
     render status: :created, :text => ""
   end
+
+  def stats
+    @node = Node.find(params[:node_id])
+  end
 end

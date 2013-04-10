@@ -40,7 +40,10 @@ Ffserv::Application.routes.draw do
       post 'update_vpn_status'
       post 'vpn_down'
     end
+
+    get 'stats', controller: :nodes, action: :stats
   end
+
   resources :node_statuses
 
   # Sample resource route with options:
