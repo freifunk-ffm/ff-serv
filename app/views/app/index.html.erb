@@ -1,6 +1,21 @@
+
 <% content_for(:head) do %>
 <h1>Freifunk-Service </h1>
 <% end %>
+
+<% content_for(:javascript) do %>
+	$(function() {
+		$('div.node_map').each(function(index, value) { 
+			var lat = $( value ).attr('lat')
+			var lng = $( value ).attr('lng')
+			if(lat!==""&&lng!==""){
+				init_node_map(value, lat, lng)
+			}
+		});
+	});
+	
+<% end %>
+
 
 <h2>Willkommen</h2>
 
@@ -41,5 +56,11 @@ Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelde
 <% if @my_nodes.size > 0%>
 	<h2>Eigene Nodes</h2>
 	Deine Nodes haben diesen Status.
-	<%= render :partial => 'shared/registered_nodes', :object => @my_nodes %>
+	<table>
+		<th>Node</th>
+		<th>Position</th>
+		<th>Erreichbarkeit</th>
+	    <!-- <th>Datendurchsatz</th> -->
+		<%= render :partial => "shared/nodes_reg", :collection => @my_nodes %>
+	</table>
 <% end %>

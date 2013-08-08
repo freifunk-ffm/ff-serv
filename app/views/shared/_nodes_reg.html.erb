@@ -1,0 +1,41 @@
+<tr>
+	<td valign="top" class="vpn_status<%= nodes_reg.status.vpn_status %>">
+		<span class="node_reg_key">Node-Name:</span>
+		<span class="node_reg_value"><%= nodes_reg.node_registration.name %></span> - 
+		<span class="node_reg_key">MAC:</span>
+		<span class="node_reg_value monospaced"><%= nodes_reg.mac %></span> <br />
+		<span class="node_reg_key">Kontakt:</span>
+		<span class="node_reg_value">
+			<%= nodes_reg.node_registration.operator_name %> 
+			(<%= mail_to nodes_reg.node_registration.operator_email,
+			 	nodes_reg.node_registration.operator_email,
+			 	{:encode => "javascript", :subject => "Freifunk-KBU-Node #{nodes_reg.mac}"}%>)
+		</span> <br />
+
+		<span class="node_reg_key">Standort:</span>
+		<span class="node_reg_value"> 
+			<%= nodes_reg.node_registration.loc_str[0,40] %><%= '...' if nodes_reg.node_registration.loc_str.size > 40%>
+		</span><br />
+		<span class="node_reg_key">Firmware-Version:</span>
+		<span class="node_reg_value"><%= nodes_reg.fw_version %></span><br />
+		<span class="node_reg_key">Link-Local-Adresse:</span>
+		<span class="node_reg_value monospaced"><%= nodes_reg.link_local_address_short %></span> <br />
+		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |
+		<%= link_to 'Status-Historie', node_statuses_path(:node => nodes_reg) %> |
+        <%= link_to 'Statistik', node_stats_path(nodes_reg) %>
+		<br />
+		<% if nodes_reg.node_registration.notice.present?%>
+				<span class="node_reg_key">Hinweis:</span>
+				<div class="node_reg_value" style="width: 380px; overflow: auto">
+					<pre><%= nodes_reg.node_registration.notice%></pre>
+				</div>
+		<% end %>
+		</span> <br />
+	</td>
+	<td>
+		<div class="node_map" lat="<%= nodes_reg.node_registration.latitude %>" lng="<%= nodes_reg.node_registration.longitude %>" style="height: 160px; width: 400px;">	
+	</td>
+	<td>
+		<img src="<%= ping_image_url(nodes_reg)%>" >
+	</td>
+</tr>
