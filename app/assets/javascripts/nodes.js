@@ -1,6 +1,6 @@
 function init_node_map(nodes_map, lat, lng){
 	var zoom = 10
-	var map = L.map(nodes_map).setView([lat, lng], zoom);
+	var map = L.map(nodes_map,{scrollWheelZoom: false}).setView([lat, lng], zoom);
 	L.marker([lat,lng],{icon: assetIcon}).addTo(map);
 	
 	var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
