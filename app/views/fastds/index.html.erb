@@ -14,7 +14,7 @@
 
 <% @fastds.each do |fastd| %>
   <tr class="<%= cycle('odd','even') %>">
-    <td class="monospaced" ><%= fastd.node.mac %></td>
+    <td class="monospaced" ><%= fastd.node.mac if fastd.node %></td>
     <td class="monospaced" ><%= fastd.fw_version %></td>
     <td class="monospaced" ><%= fastd.key %></td>
     <td><%= I18n.l  fastd.created_at, :format => :short %></td>
