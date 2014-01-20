@@ -55,7 +55,7 @@ function update_node_status(markers){
 			
 		})
 	}).error(function(jqXHR,error, errorThrown) {  
-      	alert("Unable to update node status: " + error) 
+      	alert("Unable to update node status: " + error + ": " + errorThrown) 
 	})
 }
 
