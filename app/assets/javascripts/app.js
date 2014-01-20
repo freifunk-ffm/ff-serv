@@ -56,10 +56,10 @@ function update_node_status(markers){
 		})
 	}).error(function(xhr,error, errorThrown) {  
       	if(xhr.status == 0 && !msg_shown){
-      		alert("Der Browser erlaubt nicht das Nachladen der Node-Statistiken - Ggf. verhindert NoScript den CORS-Request")
-      		msg_shown = true
+      		alert("Der Browser erlaubt nicht das Nachladen der Node-Statistiken - Ggf. verhindert NoScript den CORS-Request");
+      		msg_shown = true;
       	}else{
-	      	alert("Fehler": + xhr.status + " - " + errorThrown)
+	      	alert("Fehler": + xhr.status + " - " + errorThrown);
       	}
 	})
 }
