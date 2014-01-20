@@ -41,7 +41,7 @@ function init_nodes_map(){
 function wrap_marker_span(str,id_hex){
 	return "<span class='map_popup' id='popup_text_"+id_hex+"'>" + str + "</span>"
 }
-
+var msg_shown = false
 function update_node_status(markers){
 	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
 		$.each(data, function(key, val) {
@@ -55,9 +55,12 @@ function update_node_status(markers){
 			
 		})
 	}).error(function(xhr,error, errorThrown) {  
-      	alert(xhr.status);
-        alert(errorThrown);
-      	// alert("Unable to update node status: " + error + ": " + errorThrown) 
+      	if(xhr.stats == 0 && !msg_shown){
+      		alert("Der Browser erlaubt nicht das Nachladen der Node-Statistiken - Ggf. verhindert NoScript den CORS-Request")
+      		msg_shown = true
+      	}else{
+	      	alert("Fehler": + xhr.status + " - " + errorThrown)
+      	}
 	})
 }
 
