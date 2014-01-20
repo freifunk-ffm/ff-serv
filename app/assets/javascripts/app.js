@@ -33,7 +33,7 @@ function init_nodes_map(){
 			update_node_status(markers)
 		},15000);
 	}).error(function(jqXHR,error, errorThrown) {  
-	      	alert("Unable to get nodes: " + error) 
+	      	alert("Unable to get nodes: " + error + ": " + errorThrown) 
 		})
 }
 
