@@ -1,5 +1,5 @@
 const nodes_map = 'nodes_map'
-var msg_shown = true
+var msg_shown = false
 function init_nodes_map(){
 	var lat = 50.82990 // At Wesseling
 	var lng = 6.988334655761719
