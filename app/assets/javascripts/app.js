@@ -56,9 +56,10 @@ function update_node_status(markers){
 			
 		})
 	}).error(function(xhr,error, errorThrown) {  
-      	if(xhr.status == '0' && !msg_shown){
+      	if(xhr.status == 0 && !msg_shown){
       		msg_shown = true
-      	} else {
+      		alert("Der Browser konnte die Node-Statistik nicht laden - Ggf. verhindert NoScript den CORS-Request")
+      	} else if(xhr.status != 0) {
       		alert("Fehler: " + xhr.status + errorThrown);
       	}      	
       	// alert("Unable to update node status: " + error + ": " + errorThrown) 
