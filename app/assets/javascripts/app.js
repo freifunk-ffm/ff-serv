@@ -1,5 +1,4 @@
 const nodes_map = 'nodes_map'
-var msg_shown = false;
 function init_nodes_map(){
 	var lat = 50.82990 // At Wesseling
 	var lng = 6.988334655761719
@@ -42,6 +41,7 @@ function init_nodes_map(){
 function wrap_marker_span(str,id_hex){
 	return "<span class='map_popup' id='popup_text_"+id_hex+"'>" + str + "</span>"
 }
+
 function update_node_status(markers){
 	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
 		$.each(data, function(key, val) {
@@ -55,12 +55,12 @@ function update_node_status(markers){
 			
 		})
 	}).error(function(xhr,error, errorThrown) {  
-      	if(xhr.status == 0 && !msg_shown){
-      		alert("Der Browser erlaubt nicht das Nachladen der Node-Statistiken - Ggf. verhindert NoScript den CORS-Request");
-      		msg_shown = true;
-      	}else{
-	      	alert("Fehler": + xhr.status + " - " + errorThrown);
+      	if(xhr.status == 0){
+      		
       	}
+      	alert(xhr.status);
+        alert(errorThrown);
+      	// alert("Unable to update node status: " + error + ": " + errorThrown) 
 	})
 }
 
