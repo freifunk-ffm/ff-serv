@@ -1,4 +1,5 @@
 const nodes_map = 'nodes_map'
+var msg_shown = false;
 function init_nodes_map(){
 	var lat = 50.82990 // At Wesseling
 	var lng = 6.988334655761719
@@ -41,7 +42,6 @@ function init_nodes_map(){
 function wrap_marker_span(str,id_hex){
 	return "<span class='map_popup' id='popup_text_"+id_hex+"'>" + str + "</span>"
 }
-var msg_shown = false
 function update_node_status(markers){
 	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
 		$.each(data, function(key, val) {
