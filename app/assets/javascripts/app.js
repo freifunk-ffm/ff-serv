@@ -1,4 +1,5 @@
 const nodes_map = 'nodes_map'
+var msg_shown = true
 function init_nodes_map(){
 	var lat = 50.82990 // At Wesseling
 	var lng = 6.988334655761719
@@ -55,11 +56,11 @@ function update_node_status(markers){
 			
 		})
 	}).error(function(xhr,error, errorThrown) {  
-      	if(xhr.status == 0){
-      		
-      	}
-      	alert(xhr.status);
-        alert(errorThrown);
+      	if(xhr.status == 0 && !msg_shown){
+      		msg_shown = true
+      	} else {
+      		alert("Fehler: " + xhr.status + errorThrown);
+      	}      	
       	// alert("Unable to update node status: " + error + ": " + errorThrown) 
 	})
 }
