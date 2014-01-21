@@ -56,7 +56,7 @@ function update_node_status(markers){
 			
 		})
 	}).error(function(xhr,error, errorThrown) {  
-      	if(xhr.status == 0 && !msg_shown){
+      	if(xhr.status == '0' && !msg_shown){
       		msg_shown = true
       	} else {
       		alert("Fehler: " + xhr.status + errorThrown);
