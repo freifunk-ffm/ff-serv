@@ -243,8 +243,17 @@ td.wide{
 	height: 600px;
 }
 #flash_notice, #flash_warn, #flash_alert{
-	color: red;
+
 }
+#flash_error{
+	padding: 1em;
+	color: #F00000;
+	background-color: #FFEEEE;
+	max-width: 30em;
+	font-size: 14pt;
+}
+
+
 #flash_notice{
 	color: green;
 }
@@ -269,5 +278,22 @@ td.wide{
 	color: #700;
 }
 
+.col_6{
+	width: 6em;
+}
+.t_center{
+	text-align: center;
+}
+.t_right{
+	text-align: right;
+}
+.reg_fieldset{
+	max-width: 20em;
+	right: 5px;
+	float: right;
 
-
+}
+.reg_fieldset legend{
+	font-weight: bold;
+	color: #E0256C;
+}

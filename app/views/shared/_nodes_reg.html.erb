@@ -18,6 +18,21 @@
 		</span><br />
 		<span class="node_reg_key">Firmware-Version:</span>
 		<span class="node_reg_value"><%= nodes_reg.fw_version %></span><br />
+
+		<span class="node_reg_key">VPN: </span>
+			<% Viewpoint.ord.each do |vp| 
+				st = nodes_reg.status_by_viewpoint[vp] || NodeStatus.new(vpn_status: VpnStatus.DOWN)%>
+				<span class="node_reg_value"><%=vp.name %>:</span>
+				<span class="node_reg_value vpn_status<%=st.vpn_status if st%>"><%= st.vpn_status if st%></span> 
+			<% end %>
+		<br />
+		<span class="node_reg_key">Ping: </span> 
+		<span class="node_reg_value" id="status_rtt_<%=nodes_reg.id%>">&infin;</span> - 
+		<span class="node_reg_key">Loss: </span> 
+		<span class="node_reg_value" id="status_loss_<%=nodes_reg.id%>">100%</span> <br />
+
+
+
 		<span class="node_reg_key">Link-Local-Adresse:</span>
 		<span class="node_reg_value monospaced"><%= nodes_reg.link_local_address_short %></span> <br />
 		<%= link_to 'Registrierung', edit_node_registration_path(nodes_reg.node_registration) %> |

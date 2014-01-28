@@ -11,6 +11,7 @@
 		<th>Firmware-Version</th>
 		<th>Konfigurations-Version</th>
 		<th>VPN-Software</th>
+		<th>VPN-Server</th>
 		<th>Gültig ab</th>
 		<th>&nbsp;</th> 
 	</tr>
@@ -22,6 +23,7 @@
 		<td class="monospaced"><%= s.fw_version%></td>
 		<td class="monospaced"><%= s.initial_conf_version%></td>
 		<td><%= s.vpn_sw_name%></td>
+		<td><%= s.viewpoint%></td>
 		<td><%= I18n.l s.created_at, :format => :short%></td>
 		<td><%= link_to icon_tag('clock','Historie'), node_statuses_path(:node => s.node)%></td>
 		

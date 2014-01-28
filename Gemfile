@@ -45,3 +45,4 @@ gem 'devise'
 gem "declarative_authorization"
 gem 'geocoder'
 gem "crypt-rot13"
+gem 'foreigner'

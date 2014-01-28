@@ -1,18 +1,23 @@
 <% content_for (:head) do%>
-<h1>Node-Status</h1>
+<h1>Status</h1>
 <% end %>
 
+<% if @node.present? %>
 <h2>Status des Nodes 
 	<span class="monospaced"><%= @node.mac%></span>
 </h2>
+<% else %>
+	<h2>Status aller Nodes im Netz</h2>
+<% end %>
 
-Hinweis: Die folgende Tabelle zeigt die Geschichte des Nodes. Zu jedem Status ist vermerkt, von wann bis wann er gültig war.
+
 <table border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<th>VPN-Status</th>
 		<th>Firmware-Version</th>
 		<th>Konfigurations-Version</th>
 		<th>VPN-Software</th>
+		<th>VPN-Server</th>
 		<th>Gültig ab</th>
 		<th>Gültig bis</th> 
 	</tr>
@@ -23,6 +28,7 @@ Hinweis: Die folgende Tabelle zeigt die Geschichte des Nodes. Zu jedem Status is
 		<td class="monospaced"><%= s.fw_version%></td>
 		<td class="monospaced"><%= s.initial_conf_version%></td>
 		<td><%= s.vpn_sw_name%></td>
+		<td><%= s.viewpoint.name if s.viewpoint%></td>
 		<td><%= I18n.l s.created_at, :format => :short if s.created_at %></td>
 		<td><%= I18n.l s.expired_at, :format => :short if s.expired_at %></td>
 		

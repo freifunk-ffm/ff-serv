@@ -17,7 +17,21 @@
 <% end %>
 
 
+
+
 <h2>Willkommen</h2>
+<% if signed_in? %>
+	<fieldset class="reg_fieldset">
+		<legend>Unbekannten Node registrieren</legend>
+		Wird Dein Node nicht anhand Deiner IP gefunden, dann kannst Du die MAC-Adresse eingeben um ihn zu registrieren.<br />(Siehe Aufkleber Rückseite) 
+		<p />
+		<%= form_tag(new_node_registration_path, method: "get") do %>
+  			<%= text_field_tag(:node_mac,'MAC-Adresse', :size => 17) %>
+  			<%= submit_tag("Los") %>
+		<% end %>
+	</fieldset>
+
+<% end %>
 
 Willkommen auf <%= link_to 'https://register.kbu.freifunk.net' %>
 
@@ -29,7 +43,7 @@ Andererseits ist für uns wichtig, Deine E-Mail Adresse zu kennen um Dich bei Pr
 </p>
 <% unless signed_in?%>
 <p>
-Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelden", new_user_session_path %>. Danach kannst Du die Nodes, die unter Deiner externen IP-Adresse online sind registrieren.
+Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelden", new_user_session_path %>.
 </p>
 <% end %>
 
@@ -51,6 +65,7 @@ Um einen Freifunk-Node zu registrieren musst Du Dich zuerst <%= link_to "anmelde
 	<% end %>
 	<%= render :partial => 'shared/regable_nodes', :object =>  @regable_nodes %>
 <% end %>
+<p />
 
 
 <% if @my_nodes.size > 0%>

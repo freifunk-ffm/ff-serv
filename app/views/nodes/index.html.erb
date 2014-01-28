@@ -17,10 +17,10 @@
 
 <h2>Übersicht </h2>
 
-Nodes insgesamt: <%= Node.count%> |
-Nodes online: <%= Node.online.count %> |
-Nodes registriert: <%= Node.registered.count %> <p />
-Diese Nodes sind bei Freifunk-KBU registriert.
+Bekannte Nodes: <%= Node.count %> <br />
+Online: n.n. | Registriert: <%= Node.registered.count %> | Aktuell per VPN verbunden: <%= Node.online.count %>
+<h2>Registrierte Nodes</h2>
+Diese Nodes im Register gespeichert.
 <table>
 	<th>Node</th>
 	<th>Position</th>

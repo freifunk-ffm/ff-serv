@@ -34,15 +34,27 @@
 		<%= link_to "Nodes", nodes_path %> |
 		<%= link_to "Fastd-Keys", fastds_path %> |
 		<%= link_to "Watchdog", watchdog_bites_path %> |
-		<p />
-		<p id="flash_notice"><%= flash[:notice]%></p>
-		<p id="flash_error"><%= flash[:error]%></p>
-		<p id="flash_warn"><%= flash[:warn]%></p>
-		<p id="flash_alert"><%= flash[:alert]%></p>
 
 	</div>
 </div>
 <div id="body" >
+		<% if flash[:notice].present? %>
+			<p id="flash_notice"><%= flash[:notice]%></p>
+		<% end %>
+
+		<% if flash[:error].present? %>
+			<p id="flash_error">
+				<%= flash[:error] %>
+			</p>
+		<% end %>
+
+		<% if flash[:warn].present? %>
+			<p id="flash_warn"><%= flash[:warn] %></p>
+		<% end %>
+
+		<% if flash[:alert].present? %>
+			<p id="flash_alert"><%= flash[:alert] %></p>
+		<% end %>
 <%= yield %>
 </div>
 </body>

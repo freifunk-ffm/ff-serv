@@ -3,7 +3,7 @@ require 'crypt/rot13'
 
 class NodeRegistration < ActiveRecord::Base
   include Crypt
-  
+  before_create :save_node
   using_access_control
   before_destroy :zero_node
   
@@ -15,13 +15,13 @@ class NodeRegistration < ActiveRecord::Base
 
 
   attr_accessible :latitude, :loc_str, :longitude, :name, :operator_email, :operator_name, :notice, :osm_loc, :node_at
-  has_one :node
+  belongs_to :node
   belongs_to :owner, :class_name => "User"
   belongs_to :creator, :class_name => "User", :foreign_key => 'created_by'
   belongs_to :updater, :class_name => "User", :foreign_key => 'updated_by'
 
   def node_at=(attrs)
-    self.node = Node.find(attrs[:id])
+    self.node = Node.find_by_id(attrs[:id]) || Node.new(id: attrs[:id])
   end
 
   def operator_emaiL_rot13
@@ -29,6 +29,9 @@ class NodeRegistration < ActiveRecord::Base
   end
 
   private
+  def save_node
+    self.node.save!
+  end
   def zero_node
     self.node.update_attribute(:node_registration_id,nil)
   end

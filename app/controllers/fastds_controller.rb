@@ -23,7 +23,8 @@ class FastdsController < ApplicationController
         @fastd.vpn_server = "#{rip} #{vpn_s}"
       end
 
-      @fastd.node = Node.find_or_create_by_mac params[:mac]
+      @fastd.node = Node.find_or_create_by_id(mac.to_i(16))
+      @fastd.node.update_attribute(:fw_version,@fastd.fw_version)
       @fastd.fw_version = params[:fw_version]
       @fastd.updated_at = DateTime.now
       @fastd.save!

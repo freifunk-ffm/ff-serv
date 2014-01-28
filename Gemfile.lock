@@ -48,6 +48,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    foreigner (1.6.1)
+      activerecord (>= 3.0.0)
     geocoder (1.1.6)
     haml (4.0.2)
       tilt
@@ -136,6 +138,7 @@ DEPENDENCIES
   crypt-rot13
   declarative_authorization
   devise
+  foreigner
   geocoder
   haml-rails
   jquery-rails

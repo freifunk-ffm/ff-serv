@@ -5,8 +5,23 @@ class NodeRegistrationsController < ApplicationController
   # GET /node_node_registrations/new.json
   def new
     @registration = NodeRegistration.new
-    @registration.node = Node.find(params[:node]) if params[:node]
+    node_id = params[:node]
     
+    if(mac = params[:node_mac])
+      mac.gsub!(/[^A-Fa-f0-9]/,'')
+      node_id = mac.to_i(16)
+      logger.info "Got node-id: #{node_id}"
+    end
+
+    node = Node.find_by_id(node_id) || Node.new(id: node_id)
+    
+    if(node && node.node_registration.present?)
+      flash[:error] = "Fehler: Der Node #{node.mac} ist bereits registriert."
+      redirect_to app_index_path
+      return
+    end
+
+    @registration.node = node
     @registration.owner = current_user
     @registration.osm_loc = "Suchbegriff"
     
