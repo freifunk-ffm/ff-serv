@@ -1,3 +1,4 @@
+require 'netaddr'
 class NodesController < ApplicationController
   before_filter :authenticate_bot, :only => [:update_vpn_status,:vpn_down]
   
@@ -61,5 +62,15 @@ class NodesController < ApplicationController
 
   def stats
     @node = Node.find(params[:node_id])
+  end
+
+  def mac
+    term = params[:term]
+    term.gsub!(/[^A-Fa-f0-9]/,'')
+    macs = Node.unregistered.select {|n| n.mac.match(term) }.map {|n| n.to_s}
+    if(macs.size > 15)
+      macs = macs[0..14] + ["Weitere ..."] 
+    end
+    render text: macs.to_json
   end
 end

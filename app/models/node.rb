@@ -44,6 +44,10 @@ class Node < ActiveRecord::Base
     )
   end
   
+  def to_s
+    self.mac.scan(/../).join(':')
+  end
+
   def update_vpn_status(vpn_status,ip,vpn_sw,viewpoint)
     ip_str = "#{ip}"
     vpn_sw_str = "#{vpn_sw}"
@@ -70,6 +74,7 @@ class Node < ActiveRecord::Base
   def mac
     self.id.to_s(16).rjust(12,'0') #ID => mac. Für backwards comp.: format id has string (hexadecimal) having 12 letters
   end
+
 
   def link_local_address
     bs = self.mac.scan(/../).map {|c| c.to_i(16)}

@@ -39,6 +39,7 @@ Ffserv::Application.routes.draw do
     collection do
       post 'update_vpn_status'
       post 'vpn_down'
+      get 'mac'
     end
 
     get 'stats', controller: :nodes, action: :stats

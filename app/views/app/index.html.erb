@@ -3,6 +3,7 @@
 <h1>Freifunk-Service </h1>
 <% end %>
 
+
 <% content_for(:javascript) do %>
 	$(function() {
 		$('div.node_map').each(function(index, value) { 
@@ -10,6 +11,17 @@
 			var lng = $( value ).attr('lng')
 			if(lat!==""&&lng!==""){
 				init_node_map(value, lat, lng)
+			}
+		});
+		$('#mac_autocomplete').autocomplete({
+			minLength: 2,
+			delay: 200,
+			source: '/nodes/mac.json',
+			search: function(event, ui) { 
+				$( '#ajax-loader' ).show();
+			},
+			open: function(event, ui) { 
+				$( '#ajax-loader' ).hide();
 			}
 		});
 	});
@@ -23,11 +35,12 @@
 <% if signed_in? %>
 	<fieldset class="reg_fieldset">
 		<legend>Unbekannten Node registrieren</legend>
-		Wird Dein Node nicht anhand Deiner IP gefunden, dann kannst Du die MAC-Adresse eingeben um ihn zu registrieren.<br />(Siehe Aufkleber Rückseite) 
+		Wird Dein Node nicht gefunden, dann gib MAC-Adresse ein um ihn zu registrieren.<br />(Siehe Aufkleber Rückseite) 
 		<p />
 		<%= form_tag(new_node_registration_path, method: "get") do %>
-  			<%= text_field_tag(:node_mac,'MAC-Adresse', :size => 17) %>
+  			<%= text_field_tag(:node_mac,'MAC-Adresse', {:size => 17, :id => 'mac_autocomplete'}) %>
   			<%= submit_tag("Los") %>
+  			<span id="ajax-loader"style="display:none"><%=image_tag 'ajax-loader.gif'%></span> 
 		<% end %>
 	</fieldset>
 

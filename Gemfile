@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.16'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -46,3 +46,4 @@ gem "declarative_authorization"
 gem 'geocoder'
 gem "crypt-rot13"
 gem 'foreigner'
+gem 'netaddr'
