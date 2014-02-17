@@ -1,0 +1,36 @@
+== FF Serv
+
+Registration Server for the Freifunk Community Cologne/Frankfurt/Magdeburg.
+
+=== Setup Application
+
+we are right now working on branch ffm, which is a clone from branch v2.
+
+´´´
+gem install bundler
+bundle install
+´´´
+
+=== DB Setup
+
+´´´
+su - postgres
+
+initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
+
+createdb ff-serv
+psql -d ff-serv
+
+create role ffserv with login password 'auniquepassword';
+
+gem install activerecord-postgresql-adapter
+rake db:setup
+´´´
+
+Devise.secret_key was not set. Please add the following to your Devise initializer:
+
+config/initializers/devise.rb:
+* config.secret_key = '4409a5f74aed834a3484bd73d76108e81f6594777df0b0a54aae95d6b78f83b7b05d57e81cf3018ae127182fc07a1436d32106060957702da5a4c9da521ce31a'
+
+rails server
+

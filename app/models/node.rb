@@ -3,7 +3,7 @@ class Node < ActiveRecord::Base
   require 'net/http'
   using_access_control
   validates_format_of :mac, :with => /^[0-9a-f]{12}$/i
-  
+
   attr_accessible :id
   has_many :fastds
   has_many :node_statuses
@@ -11,17 +11,19 @@ class Node < ActiveRecord::Base
   has_one  :valid_tinc, :conditions => 'approved_at IS NOT NULL and revoked_at IS NULL', :class_name => 'Tinc'
   has_one :node_registration
   has_many :statuses, :class_name => 'NodeStatus', :include => ['vpn_status']
-  
-  scope :registered, joins(:node_registration).includes([:node_statuses]) 
+
+  scope :registered, joins(:node_registration).includes([:node_statuses])
   scope :unregistered,where("nodes.id not in (SELECT nr.node_id from node_registrations nr)")
   scope :reg_able, unregistered.with_permissions_to(:register)
 
   scope :online, joins(:statuses).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
 
   after_create :add_mac_to_stat
-  
+
+  self.primary_key = :id
+
   #  Legacy code - A node is "online" if it's online for one vpn-server
-  # It's offline, 
+  # It's offline,
   def last_status
     @last_status ||= self.statuses.order('created_at DESC').first
   end
@@ -33,17 +35,17 @@ class Node < ActiveRecord::Base
 
 
   def add_mac_to_stat
-    uri = URI('http://collectd.kbu.freifunk.net/nodes/add_macs')
+    uri = URI('http://collectd.ffm.freifunk.net/nodes/add_macs')
     res = Net::HTTP.post_form(uri, 'mac' => [mac])
     puts res.body
   end
 
-  def self.unregistered_home(ip_address) 
-    Node.unregistered.joins([:statuses]).where(:node_statuses => 
+  def self.unregistered_home(ip_address)
+    Node.unregistered.joins([:statuses]).where(:node_statuses =>
       {:ip => ip_address}
     )
   end
-  
+
   def to_s
     self.mac.scan(/../).join(':')
   end
@@ -63,14 +65,14 @@ class Node < ActiveRecord::Base
        :viewpoint => viewpoint)
     end
   end
-  
+
   # No leading 0 in groups
   def link_local_address_short
     bs = self.mac.scan(/../).join(':')
     addr = NetAddr::EUI.create(bs)
     addr.link_local(:Short => true)
   end
-  
+
   def mac
     self.id.to_s(16).rjust(12,'0') #ID => mac. Für backwards comp.: format id has string (hexadecimal) having 12 letters
   end
