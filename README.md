@@ -6,14 +6,14 @@ Registration Server for the Freifunk Community Cologne/Frankfurt/Magdeburg.
 
 we are right now working on branch ffm, which is a clone from branch v2.
 
-´´´
+```
 gem install bundler
 bundle install
-´´´
+```
 
 === DB Setup
 
-´´´
+```
 su - postgres
 
 initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
@@ -25,7 +25,7 @@ create role ffserv with login password 'auniquepassword';
 
 gem install activerecord-postgresql-adapter
 rake db:setup
-´´´
+```
 
 Devise.secret_key was not set. Please add the following to your Devise initializer:
 
@@ -34,15 +34,15 @@ config/initializers/devise.rb:
 
 Start server with:
 
-´´´
+```
 rails server
-´´´
+```
 
 === Hardcoded Configuration
 
 There are some hardcoded URLs in classes, these are:
 
-´´´
+```
 index.html.erb --> https://register.ffm.freifunk.net
 reset_password_instructions.html.erb --> Freifunk-FFM
 nodes_reg.html.erb --> Freifunk-FFM-Node
@@ -69,5 +69,5 @@ development.rb --> config.action_mailer.default_url_options = { :host => "127.0.
 
 adopt config/collectd.yml.template (should be called collectd.yml)
 adopt config/collectd_ping_hosts.conf.erb
-´´´
+```
 
