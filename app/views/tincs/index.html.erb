@@ -5,7 +5,7 @@
 <h2>Tinc-VPN-Schlüssel
 <% if @node %>
  (Node: <%= @node.mac%>)
-<% end %>	
+<% end %>
 </h2>
 
 <% if @warn_collision %>
@@ -14,8 +14,8 @@
 		Für den Freifunk-Router <span class="monospaced"><%= @node.mac %></span> wurden mehrere Tinc-Schlüssel übermittelt. Da jedoch lediglich ein einziger Schlüssel verwendet werden kann, ist der Router möglicherweise nicht mehr Teil des Freifunk-Netzes. <br />
 Aktuell wird der am / um <%= I18n.l @node.valid_tinc.created_at, :format => :long %> übermittelte Schlüssel mit Fingerabdruck <span class="monospaced"><%= @node.valid_tinc.certfp%></span> verwendet. <br />
 Falls (z.B. nach einer Neuinstallation) ein anderer Schlüssel verwendet werden soll, akzeptiere ihn in der Liste. <br />
-Bei Fragen wende Dich an info@kbu.freifunk.net. <br />
-		
+Bei Fragen wende Dich an info@ffm.freifunk.net. <br />
+
 </div>
 <p />
 <% end %>

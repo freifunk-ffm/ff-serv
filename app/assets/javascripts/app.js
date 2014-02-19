@@ -28,7 +28,7 @@ function init_nodes_map(){
 				markers[id_hex] = {node: val, l_marker: marker}
 			}
 		});
-		// Referesh 15 secs. (ping interval of collectd.kbu.freifunk.net)
+		// Referesh 15 secs. (ping interval of collectd.ffm.freifunk.net)
 		update_node_status(markers);
 		setInterval(function(){
 			update_node_status(markers)
@@ -44,7 +44,7 @@ function wrap_marker_span(str,id_hex){
 }
 
 function update_node_status(markers){
-	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
+	$.getJSON('http://stat.ffm.freifunk.net/nodes.json', function(data) {
 		$.each(data, function(key, val) {
 			if(markers[key]){
 				var node = markers[key].node
