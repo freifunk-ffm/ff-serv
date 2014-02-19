@@ -1,8 +1,8 @@
-== FF Serv
+# FF Serv
 
 Registration Server for the Freifunk Community Cologne/Frankfurt/Magdeburg.
 
-=== Setup Application
+## Setup Application
 
 we are right now working on branch ffm, which is a clone from branch v2.
 
@@ -11,7 +11,7 @@ gem install bundler
 bundle install
 ```
 
-=== DB Setup
+## DB Setup
 
 ```
 su - postgres
@@ -38,7 +38,7 @@ Start server with:
 rails server
 ```
 
-=== Hardcoded Configuration
+## Hardcoded Configuration
 
 There are some hardcoded URLs in classes, these are:
 
