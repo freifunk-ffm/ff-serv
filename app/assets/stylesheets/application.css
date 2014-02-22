@@ -297,3 +297,7 @@ td.wide{
 	font-weight: bold;
 	color: #E0256C;
 }
+.offline_icon{
+	opacity:0.6;
+	filter:alpha(opacity=60); /* For IE8 and earlier */
+}

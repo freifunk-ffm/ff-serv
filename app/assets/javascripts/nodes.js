@@ -9,3 +9,12 @@ function init_node_map(nodes_map, lat, lng){
 	}).addTo(map);
 	
 }
+// Hide / Displays online nodes based on the checkbox setting
+function toggle_show_hide(){
+	$('.online_node').show();
+	if($('#hide_offline').prop('checked')){
+		$('.offline_node').hide();
+	} else {
+		$('.offline_node').show();
+	}
+}

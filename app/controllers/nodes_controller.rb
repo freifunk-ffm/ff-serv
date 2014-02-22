@@ -13,8 +13,7 @@ class NodesController < ApplicationController
       format.json do
           resp = @registered.map do |node|
            reg = node.node_registration
-           {:vpn_status => node.status.vpn_status.name,
-             :status => {:created_at => node.status.created_at},
+           {:vpn_status => node.statuses.map {|s| s.vpn_status.name},
              :node => {:id => node.id, :mac => node.mac, :mac_dec => node.mac.to_i(16), 
                :fw_version => ActionView::Base.full_sanitizer.sanitize(node.fw_version)},
              :node_registration => 

@@ -20,10 +20,13 @@ class Node < ActiveRecord::Base
 
   after_create :add_mac_to_stat
   
-  #  Legacy code - A node is "online" if it's online for one vpn-server
   # It's offline, 
   def last_status
     @last_status ||= self.statuses.order('created_at DESC').first
+  end
+
+  def online?
+    self.status_by_viewpoint.values.includes(VpnStatus.UP)
   end
 
   # Return node status for each known viewpoint

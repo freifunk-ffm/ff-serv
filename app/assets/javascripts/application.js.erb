@@ -10,12 +10,10 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
 //= require jquery.ui.all
-
 //Leaflet-Icon via asset pipeline
 var assetIcon = L.icon({
     iconUrl: '<%= asset_path "marker-icon.png" %>',
@@ -24,3 +22,55 @@ var assetIcon = L.icon({
     shadowAnchor: [12, 40],
     popupAnchor: [0,-37]
 })
+var offlineAssetIcon = L.icon({
+    iconUrl: '<%= asset_path "marker-icon-offline.png" %>',
+    shadowUrl: '<%= asset_path "marker-shadow.png" %>',
+    iconAnchor: [12, 40],
+    shadowAnchor: [12, 40],
+    popupAnchor: [0,-37],
+    className: 'offline_icon'
+})
+
+// Contininously refresh note status information
+// This routine is used by different parts of the application (map, nodelist) for loading 
+// current status data (Ping: RTT, Loss)
+function update_node_status(callback){
+	perform_update_node_status(callback)
+	setInterval(function(){
+			perform_update_node_status(callback)
+		},15000);
+}
+function perform_update_node_status(callback){
+	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
+		callback(data)
+	}).error(function(xhr,error, errorThrown) {  
+      	if(xhr.status == 0 && !msg_shown){
+      		msg_shown = true
+      		alert("Der Browser konnte die Node-Statistik nicht laden - Ggf. verhindert NoScript den CORS-Request")
+      	} else if(xhr.status != 0) {
+      		alert("Fehler: " + xhr.status + errorThrown);
+      	}      	
+ 	})
+}
+//Update list based node status data.
+function refresh_status_node_list(callback){
+	update_node_status(function (ajax_data){
+		var online_nodes = 0;
+		$.each(ajax_data, function(key, val) {
+			$('#status_rtt_'+key).html(Math.round(val.rtt_5_min) + " ms")
+			$('#status_loss_'+key).html(Math.round(val.loss_5_min*100) + "%")
+			if(val.loss_5_min < 0.9){
+				online_nodes++;
+				$('#node_'+key).addClass('online_node').removeClass('offline_node')
+			} else {
+				$('#node_'+key).addClass('offline_node').removeClass('online_node')
+			}
+		})
+		// Update total count
+		$('#online_nodes').html(online_nodes)
+		// Callback, if given
+		if(callback){
+			callback()
+		}
+	})
+}

@@ -1,5 +1,7 @@
 const nodes_map = 'nodes_map'
 var msg_shown = false
+var markers = {}
+
 function init_nodes_map(){
 	var lat = 50.82990 // At Wesseling
 	var lng = 6.988334655761719
@@ -17,25 +19,21 @@ function init_nodes_map(){
 	
 	// Load nodes
 	$.getJSON('/nodes.json', function(data) {
-		var markers = {}
 	  	$.each(data, function(key, val) {
 			var id_hex = val.node.mac_dec
 			var reg = val.node_registration
 			if(reg.latitude && reg.longitude){
-				var marker = L.marker([reg.latitude,reg.longitude],{icon: assetIcon}).addTo(map)
+				var marker = L.marker([reg.latitude,reg.longitude],{icon: offlineAssetIcon}).addTo(map)
 				marker.bindPopup(wrap_marker_span(popup_text(val,null),id_hex)).openPopup() // Since leaflet itself is unable to update its markers
 																					  // We'll will update the content by refering to its span
 				markers[id_hex] = {node: val, l_marker: marker}
 			}
 		});
-		// Referesh 15 secs. (ping interval of collectd.kbu.freifunk.net)
-		update_node_status(markers);
-		setInterval(function(){
-			update_node_status(markers)
-		},15000);
+		// Call Ajax-Routing for updating node status data
+		update_node_status(update_markers)
 	}).error(function(jqXHR,error, errorThrown) {  
-	      	alert("Unable to get nodes: " + error + ": " + errorThrown) 
-		})
+	     	alert("Unable to get nodes: " + error + ": " + errorThrown) 
+	})
 }
 
 // Hack for updating markers
@@ -43,26 +41,23 @@ function wrap_marker_span(str,id_hex){
 	return "<span class='map_popup' id='popup_text_"+id_hex+"'>" + str + "</span>"
 }
 
-function update_node_status(markers){
-	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
-		$.each(data, function(key, val) {
-			if(markers[key]){
-				var node = markers[key].node
-				var marker = markers[key].l_marker
-				var text = popup_text(node,val)
-				$('#popup_text_'+key).html(text) //Since this get lost, while reopen the marker, rebind the popup as well
-				marker.bindPopup(wrap_marker_span(text,key))
+function update_markers(ajax_data){
+	$.each(ajax_data, function(key, val) {
+		if(markers[key]){
+			var node = markers[key].node
+			var marker = markers[key].l_marker
+			var text = popup_text(node,val)
+			$('#popup_text_'+key).html(text) //Since this get lost, while reopen the marker, rebind the popup as well
+			marker.bindPopup(wrap_marker_span(text,key))
+			// Toggle Offline / Online icon
+			if(val.loss_5_min < 0.9){
+				marker.setIcon(assetIcon)
+				marker.setZIndexOffset(10000)
+			}else {
+				marker.setIcon(offlineAssetIcon)
+				marker.setZIndexOffset(0)
 			}
-			
-		})
-	}).error(function(xhr,error, errorThrown) {  
-      	if(xhr.status == 0 && !msg_shown){
-      		msg_shown = true
-      		alert("Der Browser konnte die Node-Statistik nicht laden - Ggf. verhindert NoScript den CORS-Request")
-      	} else if(xhr.status != 0) {
-      		alert("Fehler: " + xhr.status + errorThrown);
-      	}      	
-      	// alert("Unable to update node status: " + error + ": " + errorThrown) 
+		}
 	})
 }
 
@@ -83,9 +78,8 @@ function popup_text(node_json,node_status_json){
 	}
 	// Element
 	var registration_link_elem = "<a href='/node_registrations/"+reg.id+"/edit'>" + reg.name + "</a><br />"
-	var vpn_status_elem = "VPN-Status: <span class='vpn_status"+vpn_status+"' >"+vpn_status + "</span></br />"
 	var node_id_elem = "Node-ID: <span class='monospaced'>"+node.mac+"</span><br />"
-	return registration_link_elem + status_str + vpn_status_elem + node_id_elem + ping_str
+	return registration_link_elem + status_str + node_id_elem + ping_str
 
 }
 
