@@ -17,6 +17,7 @@ class FastdsController < ApplicationController
   def create
     Fastd.transaction do
       @fastd = Fastd.find_or_create_by_key params[:key]
+      mac=params[:mac]
       rip = request.remote_ip
       vpn_s = @fastd.vpn_server
       if vpn_s.blank? || !vpn_s.include?(rip)

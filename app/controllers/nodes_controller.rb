@@ -42,9 +42,9 @@ class NodesController < ApplicationController
     vpn_status_name = params[:vpn_status]
     vpn_sw = params[:vpn_sw]
     ip = params[:ip]
-    viewpoint = params[:viewpoint]
+    viewpoint = params[:viewpoint] || "Unknown"
     vpn_status = VpnStatus.find_by_name vpn_status_name
-    node = Node.find_or_create_by_mac mac
+    node = Node.find_or_create_by_id mac.to_i(16)
     node.update_vpn_status vpn_status,ip,vpn_sw,viewpoint
     render status: :created, :text => ""
   end

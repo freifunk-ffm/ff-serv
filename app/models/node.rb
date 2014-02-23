@@ -13,7 +13,7 @@ class Node < ActiveRecord::Base
   has_many :statuses, :class_name => 'NodeStatus', :include => ['vpn_status']
   
   scope :registered, joins(:node_registration).includes([:node_statuses]) 
-  scope :unregistered,where("nodes.id not in (SELECT nr.node_id from node_registrations nr)")
+  scope :unregistered,where("nodes.id not in (select n2a.id from nodes n2a where n2a.id in (SELECT nr.node_id from node_registrations nr))")
   scope :reg_able, unregistered.with_permissions_to(:register)
 
   scope :online, joins(:statuses).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
@@ -54,16 +54,19 @@ class Node < ActiveRecord::Base
   def update_vpn_status(vpn_status,ip,vpn_sw,viewpoint)
     ip_str = "#{ip}"
     vpn_sw_str = "#{vpn_sw}"
+    vp = Viewpoint.find_or_create_by_name viewpoint
+    
     Node.transaction do
-      old_status = self.status || NodeStatus.new
-      NodeStatus.update_attributes(
+      logger.error "VP id is #{vp.id}"
+      old_status = self.statuses.find_by_viewpoint_id(vp.id) || NodeStatus.new
+      old_status.update_attributes(
        :fw_version => old_status.fw_version,
        :initial_conf_version => old_status.initial_conf_version,
        :node_id => self.id,
        :vpn_status_id => vpn_status.id,
        :vpn_sw_name => vpn_sw_str,
        :ip => ip_str,
-       :viewpoint => viewpoint)
+       :viewpoint_id => vp.id)
     end
   end
   
