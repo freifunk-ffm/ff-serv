@@ -96,3 +96,10 @@ git merge upstream/v2
 
 --> git checkout ffm
 --> git merge v2
+
+Server:
+mv config/database.yml /root
+git pull
+mv /root/database.yml config
+rake db:migrate RAILS_ENV=production
+service apache2 restart

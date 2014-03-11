@@ -20,6 +20,8 @@ class Node < ActiveRecord::Base
 
   after_create :add_mac_to_stat
   
+  self.primary_key = :id
+
   # It's offline, 
   def last_status
     @last_status ||= self.statuses.order('created_at DESC').first
