@@ -6,7 +6,7 @@
 
 <% content_for(:javascript) do %>
 	$(function() {
-		$('div.node_map').each(function(index, value) {
+		$('div.node_map').each(function(index, value) { 
 			var lat = $( value ).attr('lat')
 			var lng = $( value ).attr('lng')
 			if(lat!==""&&lng!==""){
@@ -17,14 +17,15 @@
 			minLength: 2,
 			delay: 200,
 			source: '/nodes/mac.json',
-			search: function(event, ui) {
+			search: function(event, ui) { 
 				$( '#ajax-loader' ).show();
 			},
-			open: function(event, ui) {
+			open: function(event, ui) { 
 				$( '#ajax-loader' ).hide();
 			}
 		});
 	});
+	refresh_status_node_list()	
 
 <% end %>
 
@@ -35,23 +36,23 @@
 <% if signed_in? %>
 	<fieldset class="reg_fieldset">
 		<legend>Unbekannten Node registrieren</legend>
-		Wird Dein Node nicht gefunden, dann gib MAC-Adresse ein um ihn zu registrieren.<br />(Siehe Aufkleber Rückseite)
+		Wird Dein Node nicht gefunden, dann gib MAC-Adresse ein um ihn zu registrieren.<br />(Siehe Aufkleber Rückseite) 
 		<p />
 		<%= form_tag(new_node_registration_path, method: "get") do %>
   			<%= text_field_tag(:node_mac,'MAC-Adresse', {:size => 17, :id => 'mac_autocomplete'}) %>
   			<%= submit_tag("Los") %>
-  			<span id="ajax-loader"style="display:none"><%=image_tag 'ajax-loader.gif'%></span>
+  			<span id="ajax-loader"style="display:none"><%=image_tag 'ajax-loader.gif'%></span> 
 		<% end %>
 	</fieldset>
 
 <% end %>
 
-Willkommen auf <%= link_to 'https://register.ffm.freifunk.net' %>
+Willkommen auf <%= link_to 'http://register.ffm.freifunk.net' %>
 
 <p>Auf dieser Seite stellen wir den Status des Freifunk-FFM-Netzes dar. Gleichzeitig können Nodes registriert werden. </p>
 
 <p>
-Die Registrierung Deines Nodes ist wichtig für die Teilnahme im Freifunk-Netz. Einerseits kannst Du den Standort Deines / Deiner Nodes auf einer Karte markieren, so dass von anderen gefunden werden kann. <br />
+Die Registrierung Deines Nodes ist wichtig für die Teilnahme im Freifunk-Netz. Einerseits kannst Du den Standort Deines / Deiner Nodes auf einer Karte markieren, so dass von anderen gefunden werden kann. <br /> 
 Andererseits ist für uns wichtig, Deine E-Mail Adresse zu kennen um Dich bei Problemen direkt anschreiben zu können. Gleichzeitig erhältst Du nach der Registrierung Informationen zu Updates, Problemen und Störungen per E-Mail.
 </p>
 <% unless signed_in?%>

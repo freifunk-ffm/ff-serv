@@ -11,7 +11,8 @@
 				init_node_map(value, lat, lng)
 			}
 		});
-		
+		refresh_status_node_list(toggle_show_hide)
+		$('#hide_offline').change(toggle_show_hide)
 
 	});
 	
@@ -20,9 +21,10 @@
 <h2>Übersicht </h2>
 
 Bekannte Nodes: <%= Node.count %> <br />
-Online: n.n. | Registriert: <%= Node.registered.count %> | Aktuell per VPN verbunden: <%= Node.online.count %>
+Online: <span id="online_nodes">n.n.</span> | Registriert: <%= Node.registered.count %> | Aktuell per VPN verbunden: <%= Node.online.count %> 
 <h2>Registrierte Nodes</h2>
-Diese Nodes im Register gespeichert.
+Diese Nodes im Register gespeichert. | <%= check_box_tag 'hide_offline',true, true, id: 'hide_offline' %> Verberge inaktive Nodes<br />
+
 <table>
 	<th>Node</th>
 	<th>Position</th>

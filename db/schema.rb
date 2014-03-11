@@ -14,12 +14,76 @@
 ActiveRecord::Schema.define(:version => 20140128182906) do
 
   create_table "fastds", :force => true do |t|
-    t.column  "node_id",    :BigInt
+    t.integer  "node_id",    :limit => 8
     t.string   "fw_version"
     t.string   "key"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.string   "vpn_server"
+  end
+
+  create_table "lite_node_registrations", :force => true do |t|
+    t.integer  "node_id"
+    t.integer  "user_id"
+    t.string   "standort",      :limit => 183
+    t.string   "contact_mail",  :limit => 61
+    t.string   "notice",        :limit => 181
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "latitude",                     :precision => 28, :scale => 13
+    t.decimal  "longitude",                    :precision => 28, :scale => 14
+    t.string   "node_name",     :limit => 50
+    t.string   "operator_name", :limit => 50
+  end
+
+  create_table "lite_nodes", :force => true do |t|
+    t.string   "user_id",    :limit => 50
+    t.string   "position",   :limit => 50
+    t.string   "bat0_mac",   :limit => 50
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "wlan_mac",   :limit => 50
+    t.string   "status_id",  :limit => 50
+    t.string   "current_ip", :limit => 50
+  end
+
+  create_table "lite_roles", :id => false, :force => true do |t|
+    t.integer  "id"
+    t.string   "name",       :limit => 50
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lite_tincs", :id => false, :force => true do |t|
+    t.integer  "id"
+    t.integer  "node_id"
+    t.string   "approved_at", :limit => 56
+    t.string   "approved_by", :limit => 50
+    t.string   "cert_data",   :limit => 455
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "rip",         :limit => 68
+  end
+
+  create_table "lite_users", :force => true do |t|
+    t.string   "email",                  :limit => 54
+    t.string   "encrypted_password",     :limit => 90
+    t.string   "reset_password_token",   :limit => 50
+    t.string   "reset_password_sent_at", :limit => 50
+    t.string   "remember_created_at",    :limit => 56
+    t.integer  "sign_in_count"
+    t.string   "current_sign_in_at",     :limit => 56
+    t.string   "last_sign_in_at",        :limit => 56
+    t.string   "current_sign_in_ip",     :limit => 68
+    t.string   "last_sign_in_ip",        :limit => 68
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "role_id"
+    t.string   "name",                   :limit => 50
+    t.string   "confirmation_token",     :limit => 50
+    t.string   "confirmed_at",           :limit => 56
+    t.string   "confirmation_sent_at",   :limit => 56
+    t.string   "unconfirmed_email",      :limit => 50
   end
 
   create_table "node_registrations", :force => true do |t|
@@ -36,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20140128182906) do
     t.datetime "updated_at",                  :null => false
     t.text     "notice"
     t.string   "osm_loc"
-    t.column  "node_id", :BigInt
+    t.integer  "node_id",        :limit => 8
   end
 
   add_index "node_registrations", ["name"], :name => "index_registrations_on_name"
@@ -44,24 +108,25 @@ ActiveRecord::Schema.define(:version => 20140128182906) do
   add_index "node_registrations", ["owner_id"], :name => "index_registrations_on_owner_id"
 
   create_table "node_status_histories", :force => true do |t|
-    t.column  "node_id", :BigInt
+    t.integer  "node_id"
     t.integer  "vpn_status_id"
     t.string   "fw_version"
     t.string   "initial_conf_version"
     t.string   "vpn_sw_name"
-    t.string   "ip"
-    t.integer  "viewpoint_id"
+    t.datetime "created_at",           :null => false
     t.datetime "expired_at"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.string   "ip"
+    t.string   "viewpoint"
+    t.integer  "viewpoint_id"
   end
 
-  add_index "node_status_histories", ["node_id"], :name => "index_node_status_histories_on_node_id"
-  add_index "node_status_histories", ["viewpoint_id"], :name => "index_node_status_histories_on_viewpoint_id"
-  add_index "node_status_histories", ["vpn_status_id"], :name => "index_node_status_histories_on_vpn_status_id"
+  add_index "node_status_histories", ["ip"], :name => "index_node_statuses_on_ip"
+  add_index "node_status_histories", ["node_id"], :name => "index_node_statuses_on_node_id"
+  add_index "node_status_histories", ["viewpoint"], :name => "index_node_statuses_on_viewpoint"
+  add_index "node_status_histories", ["vpn_status_id"], :name => "index_node_statuses_on_vpn_status_id"
 
   create_table "node_statuses", :force => true do |t|
-    t.column  "node_id",  :BigInt
+    t.integer  "node_id",              :limit => 8
     t.integer  "vpn_status_id"
     t.string   "fw_version"
     t.string   "initial_conf_version"
@@ -77,12 +142,14 @@ ActiveRecord::Schema.define(:version => 20140128182906) do
   add_index "node_statuses", ["viewpoint_id"], :name => "index_node_statuses_on_viewpoint_id"
   add_index "node_statuses", ["vpn_status_id"], :name => "index_node_statuses_on_vpn_status_id"
 
-  create_table "nodes", :force => true, :id => false do |t|
-    t.column :id, :BigInt, :options => 'PRIMARY KEY'
+  create_table "nodes", :force => true do |t|
+    t.string   "mac"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "fw_version"
   end
+
+  add_index "nodes", ["mac"], :name => "index_nodes_on_mac"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -93,7 +160,7 @@ ActiveRecord::Schema.define(:version => 20140128182906) do
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "tincs", :force => true do |t|
-    t.column  "node_id", :BigInt
+    t.integer  "node_id",     :limit => 8
     t.datetime "approved_at"
     t.integer  "approved_by"
     t.datetime "revoked_at"
@@ -147,7 +214,7 @@ ActiveRecord::Schema.define(:version => 20140128182906) do
   end
 
   create_table "watchdog_bites", :force => true do |t|
-    t.column  "node_id", :BigInt
+    t.integer  "node_id",         :limit => 8
     t.datetime "node_stmp"
     t.datetime "submission_stmp"
     t.text     "log_data"

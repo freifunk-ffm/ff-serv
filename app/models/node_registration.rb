@@ -5,7 +5,6 @@ class NodeRegistration < ActiveRecord::Base
   include Crypt
   before_create :save_node
   using_access_control
-  before_destroy :zero_node
   
   validates_presence_of :operator_name
   validates_presence_of :operator_email
@@ -31,8 +30,5 @@ class NodeRegistration < ActiveRecord::Base
   private
   def save_node
     self.node.save!
-  end
-  def zero_node
-    self.node.update_attribute(:node_registration_id,nil)
   end
 end
