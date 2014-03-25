@@ -18,7 +18,7 @@ class Node < ActiveRecord::Base
 
   scope :online, joins(:statuses).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
 
-  after_create :add_mac_to_stat
+#  after_create :add_mac_to_stat
   
   self.primary_key = :id
 
