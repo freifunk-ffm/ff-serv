@@ -32,7 +32,7 @@ var offlineAssetIcon = L.icon({
 })
 
 // Contininously refresh note status information
-// This routine is used by different parts of the application (map, nodelist) for loading 
+// This routine is used by different parts of the application (map, nodelist) for loading
 // current status data (Ping: RTT, Loss)
 function update_node_status(callback){
 	perform_update_node_status(callback)
@@ -41,15 +41,15 @@ function update_node_status(callback){
 		},15000);
 }
 function perform_update_node_status(callback){
-	$.getJSON('http://stats.ffm.freifunk.net/nodes.json', function(data) {
+	$.getJSON('/nodes.json', function(data) {
 		callback(data)
-	}).error(function(xhr,error, errorThrown) {  
+	}).error(function(xhr,error, errorThrown) {
       	if(xhr.status == 0 && !msg_shown){
       		msg_shown = true
       		alert("Der Browser konnte die Node-Statistik nicht laden - Ggf. verhindert NoScript den CORS-Request")
       	} else if(xhr.status != 0) {
       		alert("Fehler: " + xhr.status + errorThrown);
-      	}      	
+      	}
  	})
 }
 //Update list based node status data.

@@ -6,17 +6,17 @@ function init_nodes_map(){
 	var lat = 50.12658 // At FFM
 	var lng = 8.69491
 	var zoom = 12
-	
+
 	var map = L.map(nodes_map).setView([lat, lng], zoom);
 
 	map.setView([lat, lng], zoom);
-	
-	var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+	var osmUrl = '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 	L.tileLayer(osmUrl, {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
 	}).addTo(map);
 
-	
+
 	// Load nodes
 	$.getJSON('/nodes.json', function(data) {
 	  	$.each(data, function(key, val) {
@@ -31,8 +31,8 @@ function init_nodes_map(){
 		});
 		// Call Ajax-Routing for updating node status data
 		update_node_status(update_markers)
-	}).error(function(jqXHR,error, errorThrown) {  
-	     	alert("Unable to get nodes: " + error + ": " + errorThrown) 
+	}).error(function(jqXHR,error, errorThrown) {
+	     	alert("Unable to get nodes: " + error + ": " + errorThrown)
 	})
 }
 
@@ -74,7 +74,7 @@ function popup_text(node_json,node_status_json){
 		var grade = grade_node_status(rtt,loss)
 		status_str = "Erreichbarkeit: "+grade_string(grade) + "<br />"
 		ping_str = "Ping: " + rtt + "ms - Verlust: " + Math.round(loss*100) + "%<br />"
-		
+
 	}
 	// Element
 	var registration_link_elem = "<a href='/node_registrations/"+reg.id+"/edit'>" + reg.name + "</a><br />"
