@@ -18,7 +18,7 @@ class Node < ActiveRecord::Base
 
   scope :online, joins(:statuses).where(:node_statuses => {:vpn_status_id => VpnStatus.UP.id})
 
-#  after_create :add_mac_to_stat
+  after_create :add_mac_to_stat
   
   self.primary_key = :id
 
@@ -38,7 +38,8 @@ class Node < ActiveRecord::Base
 
 
   def add_mac_to_stat
-    uri = URI('http://collectd.ffm.freifunk.net/nodes/add_macs')
+    logger.error "running add_mac_to_stat"
+    uri = URI('http://stats.bb.ffm.freifunk.net/nodes/add_macs')
     res = Net::HTTP.post_form(uri, 'mac' => [mac])
     puts res.body
   end

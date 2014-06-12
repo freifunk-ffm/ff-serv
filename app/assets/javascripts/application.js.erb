@@ -41,7 +41,7 @@ function update_node_status(callback){
 		},15000);
 }
 function perform_update_node_status(callback){
-	$.getJSON('http://stat.kbu.freifunk.net/nodes.json', function(data) {
+	$.getJSON('http://stats.ffm.freifunk.net/nodes.json', function(data) {
 		callback(data)
 	}).error(function(xhr,error, errorThrown) {  
       	if(xhr.status == 0 && !msg_shown){

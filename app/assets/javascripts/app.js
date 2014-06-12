@@ -3,10 +3,10 @@ var msg_shown = false
 var markers = {}
 
 function init_nodes_map(){
-	var lat = 50.82990 // At Wesseling
-	var lng = 6.988334655761719
-	var zoom = 9 
-
+	var lat = 50.12658 // At FFM
+	var lng = 8.69491
+	var zoom = 12
+	
 	var map = L.map(nodes_map).setView([lat, lng], zoom);
 
 	map.setView([lat, lng], zoom);
