@@ -6,7 +6,7 @@ class NodeRegistrationsController < ApplicationController
   def new
     @registration = NodeRegistration.new
     node_id = params[:node]
-    
+
     if(mac = params[:node_mac])
       mac.gsub!(/[^A-Fa-f0-9]/,'')
       node_id = mac.to_i(16)
@@ -14,7 +14,7 @@ class NodeRegistrationsController < ApplicationController
     end
 
     node = Node.find_by_id(node_id) || Node.new(id: node_id)
-    
+
     if(node && node.node_registration.present?)
       flash[:error] = "Fehler: Der Node #{node.mac} ist bereits registriert."
       redirect_to app_index_path
@@ -24,7 +24,7 @@ class NodeRegistrationsController < ApplicationController
     @registration.node = node
     @registration.owner = current_user
     @registration.osm_loc = "Suchbegriff"
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @registration }
@@ -40,12 +40,12 @@ class NodeRegistrationsController < ApplicationController
   # POST /node_node_registrations.json
   def create
     p = params[:node_registration]
-    
+
     @registration = NodeRegistration.new(latitude: p[:latitude],longitude:  p[:longitude],
       operator_name: p[:operator_name], operator_email: p[:operator_email],
       name: p[:name], node_at: p[:node_at],notice: p[:notice],
       loc_str: p[:loc_str], osm_loc: p[:osm_loc])
-    
+
     if permitted_to?(:set_owner, @registration)
       @registration.owner_id = p[:owner_id]
     else
@@ -82,7 +82,7 @@ class NodeRegistrationsController < ApplicationController
         operator_name: p[:operator_name], operator_email: p[:operator_email],
         name: p[:name], node_at: p[:node_at],notice: p[:notice],
         loc_str: p[:loc_str], osm_loc: p[:osm_loc])
-        
+
         format.html { redirect_to nodes_path, notice: 'Registrierung erfolgreich gespeichert.' }
         format.json { head :no_content }
       else
